@@ -50,10 +50,10 @@ These files are labelled stand-ins and should be replaced:
 
 - `farm/hero.svg`
 - `farm/landscape.svg`
-- `people/hero.svg`
 
 Real photographs already in use:
 
 - Georgette wreck, Redgate, propeller study, exhibition room
 - Underwater wreck and swimmer work
 - Margaret River coast: Little Rock, Isaac Rock, Celestial Rock, Redgate, sunset
+- People: Contos Leap (`people/contos-leap.jpg`)

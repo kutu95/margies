@@ -11,8 +11,9 @@ The `margies.app` directory was empty. The exhibition and Metal My Mini apps are
 - **Framework:** Astro 7 (static output)
 - **Package manager:** npm
 - **Node:** 24 (see `.nvmrc`; Astro 7 needs Node 22+)
-- **Content:** Markdown in `src/content/projects/` and `src/content/photography/`
-- **Config:** `src/config/site.ts`
+- **Content:** Markdown in `src/content/projects/`, `src/content/photography/` and `src/content/pages/`
+- **Config:** `src/config/site.ts` plus `src/content/settings.json`
+- **Admin:** `/admin` on the Node server (`server.mjs`), password from `.env`
 - **Hosting assumption:** Cloudflare Pages, with DNS for `margies.app` pointed at this project
 
 ## Commands
@@ -23,7 +24,23 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build
 npm run preview
+npm run start        # production server, including /admin
 ```
+
+## Admin
+
+The public site stays static. `/admin` is a small authenticated section on the same Node process that serves `dist`.
+
+1. Copy `.env.example` to `.env`.
+2. Set `ADMIN_USER` (defaults to `admin` if omitted), `ADMIN_PASSWORD`, and `ADMIN_SESSION_SECRET`.
+3. Restart the server. `/admin` stays 404 until `ADMIN_PASSWORD` is set.
+4. Sign in at `https://margies.app/admin`.
+
+From there you can edit site identity, page copy, project pages, photography collections, and images. Saving writes files and runs `npm run build` so the public pages update.
+
+The first save copies content and images into a `data/` folder on the server. Later git deploys do not delete `data/`, so live edits survive `deploy.sh`. To go back to the repo versions, remove `data/` and rebuild.
+
+Do not link `/admin` from the public navigation. `robots.txt` disallows it.
 
 ## Adding a project
 
@@ -160,7 +177,7 @@ After pushing to GitHub:
 ssh john@192.168.0.146 '~/apps/margies.app/scripts/deploy.sh'
 ```
 
-That pulls `main`, installs dependencies, builds, and reloads PM2. The server uses Node 24 via nvm (see `.nvmrc`).
+That pulls `main`, installs dependencies, builds, and reloads PM2. The server uses Node 24 via nvm (see `.nvmrc`). Create `/home/john/apps/margies.app/.env` with the admin password before using `/admin`. The `data/` overlay created by admin edits is not removed by deploy.
 
 ## Local review
 

@@ -1,21 +1,31 @@
 /**
- * Site-wide configuration. Change email, verification tokens and
- * social metadata here rather than hunting through templates.
+ * Site-wide configuration. Editable identity fields live in
+ * src/content/settings.json (or data/content/settings.json after admin use).
  */
+import fs from "node:fs";
+import { settingsPath } from "../lib/content-paths";
+
+const settings = JSON.parse(fs.readFileSync(settingsPath(), "utf8")) as {
+  title: string;
+  description: string;
+  tagline: string;
+  jobTitle: string;
+  email: string;
+};
+
 export const site = {
   name: "John Bowskill",
   shortName: "margies.app",
-  title: "John Bowskill — Photography, creative technology and custom projects",
-  description:
-    "John Bowskill makes photographs, software and unusual things from the Margaret River region of Western Australia — photography, creative technology, custom digital systems and immersive installations.",
+  title: settings.title,
+  description: settings.description,
   url: "https://margies.app",
   author: "John Bowskill",
-  email: "john@margies.app",
+  email: settings.email,
   locale: "en_AU",
   language: "en-AU",
   region: "Margaret River region, Western Australia",
-  jobTitle: "Photographer and creative technologist",
-  tagline: "Photography, creative technology and custom projects",
+  jobTitle: settings.jobTitle,
+  tagline: settings.tagline,
   ogImage: "/images/og-default.jpg",
   /**
    * Optional HTML-tag verification for Google Search Console.

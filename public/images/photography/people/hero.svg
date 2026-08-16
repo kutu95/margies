@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
-  <title id="title">Placeholder  replace with a portrait or documentary photograph</title>
-  <desc id="desc">Drop a real image at public/images/photography/people/hero.jpg and update src/content/photography/people.md.</desc>
-  <rect width="1600" height="1000" fill="#ddd6c8"/>
-  <circle cx="800" cy="420" r="140" fill="none" stroke="#3d3932" stroke-width="3"/>
-  <path d="M560 760c40-140 160-210 240-210s200 70 240 210" fill="none" stroke="#3d3932" stroke-width="3"/>
-  <text x="800" y="860" text-anchor="middle" fill="#2c2a26" font-family="Georgia, serif" font-size="34">Placeholder  People / documentary photograph</text>
-  <text x="800" y="908" text-anchor="middle" fill="#5c5850" font-family="Helvetica, Arial, sans-serif" font-size="22">Replace this file. See public/images/photography/README.md</text>
-</svg>

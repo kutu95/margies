@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { handleAdmin } from "./admin/router.mjs";
 
 const PORT = Number(process.env.PORT || 3008);
 const HOST = process.env.HOST || "127.0.0.1";
@@ -70,6 +71,14 @@ const server = http.createServer(async (req, res) => {
   if (host === "www.margies.app") {
     res.writeHead(301, baseHeaders({ Location: `https://margies.app${url}` }));
     res.end();
+    return;
+  }
+
+  try {
+    if (await handleAdmin(req, res)) return;
+  } catch (error) {
+    res.writeHead(500, baseHeaders({ "Content-Type": "text/plain; charset=utf-8" }));
+    res.end(error instanceof Error ? error.message : "Server error");
     return;
   }
 

@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CollectionCard from "../../components/CollectionCard.astro";
+import { getPage } from "../../lib/pages";
 import { getPhotographyCollections } from "../../lib/photography";
 import { breadcrumbJsonLd, collectionPageJsonLd } from "../../lib/seo";
 
+const page = await getPage("photography");
 const collections = await getPhotographyCollections();
-const title = "Photography — John Bowskill";
-const description =
-  "Photographs by John Bowskill from the Margaret River region: the SS Georgette wreck, underwater work, coastal landscapes, and rural life.";
+const title = page.data.seoTitle ?? "Photography — John Bowskill";
+const description = page.data.seoDescription ?? "";
 const path = "/photography";
 ---
 
@@ -15,8 +16,8 @@ const path = "/photography";
   title={title}
   description={description}
   path={path}
-  image="/images/photography/georgette/wreck-aerial.jpg"
-  imageAlt="Aerial photograph of the SS Georgette wreck in clear water off Redgate Beach"
+  image={page.data.heroImage}
+  imageAlt={page.data.heroAlt}
   jsonLd={[
     breadcrumbJsonLd([
       { name: "Home", path: "/" },
@@ -35,14 +36,9 @@ const path = "/photography";
 >
   <header class="page-hero">
     <div class="wrap">
-      <p class="section-kicker">Photography</p>
-      <h1 class="page-title">A continuing thread, not a side project.</h1>
-      <p class="lede lede-wide">
-        Photography has run through a lot of the work: underwater and coastal pictures,
-        documentary and historical projects, and rooms that later needed those pictures
-        to do more than hang on a wall. Some of it stands alone. Some of it became
-        research, an exhibition, projection or software.
-      </p>
+      <p class="section-kicker">{page.data.kicker}</p>
+      <h1 class="page-title">{page.data.headline}</h1>
+      <p class="lede lede-wide">{page.data.lede}</p>
     </div>
   </header>
 
