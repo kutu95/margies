@@ -191,9 +191,6 @@ a:hover {
 
 @media (min-width: 860px) {
   .photo-hero-copy {
-    margin-top: -7.5rem;
-    padding: var(--space-4);
-    background: var(--paper);
     max-width: 38rem;
   }
 }
