@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CollectionCard from "../../components/CollectionCard.astro";
+import { getPhotographyCollections } from "../../lib/photography";
+import { breadcrumbJsonLd, collectionPageJsonLd } from "../../lib/seo";
+
+const collections = await getPhotographyCollections();
+const title = "Photography — John Bowskill";
+const description =
+  "Photographs by John Bowskill from the Margaret River region: the SS Georgette wreck, underwater work, coastal landscapes, and rural life.";
+const path = "/photography";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  image="/images/photography/georgette/wreck-aerial.jpg"
+  imageAlt="Aerial photograph of the SS Georgette wreck in clear water off Redgate Beach"
+  jsonLd={[
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Photography", path },
+    ]),
+    collectionPageJsonLd({
+      name: "Photography",
+      description,
+      path,
+      images: collections.map((collection) => ({
+        src: collection.data.hero,
+        alt: collection.data.heroAlt,
+      })),
+    }),
+  ]}
+>
+  <header class="page-hero">
+    <div class="wrap">
+      <p class="section-kicker">Photography</p>
+      <h1 class="page-title">A continuing thread, not a side project.</h1>
+      <p class="lede lede-wide">
+        Photography has run through a lot of the work: underwater and coastal pictures,
+        documentary and historical projects, and rooms that later needed those pictures
+        to do more than hang on a wall. Some of it stands alone. Some of it became
+        research, an exhibition, projection or software.
+      </p>
+    </div>
+  </header>
+
+  <section class="section-tight">
+    <div class="wrap collection-grid">
+      {collections.map((collection) => (
+        <CollectionCard collection={collection} headingLevel="h2" />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

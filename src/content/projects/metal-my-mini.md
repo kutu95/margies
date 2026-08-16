@@ -2,6 +2,9 @@
 title: "Metal My Mini"
 summary: "Custom tabletop miniatures that start as an uploaded 3D file and end as a copper-plated object, with software tying the shop to the workshop."
 category: Software / manufacturing
+disciplines:
+  - Software
+  - Hardware
 technologies:
   - 3D model upload
   - Automated file checking

@@ -2,6 +2,10 @@
 title: "Margaret River Aquafarm Technology"
 summary: "Sensor networks, dashboards and alerts for a working aquaponics greenhouse — software and electronics built because the farm has to stay alive."
 category: Software / electronics
+disciplines:
+  - Software
+  - Electronics
+  - Hardware
 technologies:
   - Arduino
   - Raspberry Pi
@@ -12,6 +16,7 @@ technologies:
   - Dashboards
   - Automation
 status: ongoing
+relatedPhotography: farm
 hero: /images/projects/aquafarm/hero.svg
 heroAlt: Abstract diagram of a greenhouse monitoring network with sensor nodes and a water loop
 gallery: []

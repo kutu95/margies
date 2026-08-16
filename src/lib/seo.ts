@@ -16,6 +16,12 @@ export function personJsonLd() {
       addressRegion: "WA",
       addressCountry: "AU",
     },
+    knowsAbout: [
+      "Photography",
+      "Creative technology",
+      "Custom software",
+      "Immersive installations",
+    ],
     sameAs: [...site.sameAs],
   };
 }
@@ -62,5 +68,31 @@ export function creativeWorkJsonLd(input: {
     image: input.image ? absoluteUrl(input.image) : undefined,
     author: { "@id": absoluteUrl("/#person") },
     sameAs: input.url ? [input.url] : undefined,
+  };
+}
+
+export function collectionPageJsonLd(input: {
+  name: string;
+  description: string;
+  path: string;
+  images: { src: string; alt: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: input.name,
+    description: input.description,
+    url: absoluteUrl(input.path),
+    author: { "@id": absoluteUrl("/#person") },
+    mainEntity: {
+      "@type": "ImageGallery",
+      name: input.name,
+      image: input.images.map((image) => ({
+        "@type": "ImageObject",
+        contentUrl: absoluteUrl(image.src),
+        description: image.alt,
+        author: { "@id": absoluteUrl("/#person") },
+      })),
+    },
   };
 }

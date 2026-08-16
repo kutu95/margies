@@ -1,6 +1,7 @@
 ---
 import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import PhotoGallery from "../../components/PhotoGallery.astro";
 import { getProjects, projectPath, statusLabel, type Project } from "../../lib/projects";
 import { breadcrumbJsonLd, creativeWorkJsonLd } from "../../lib/seo";
 
@@ -57,18 +58,23 @@ const meta = [project.data.category, statusLabel(project.data.status), project.d
         <h1 class="page-title">{project.data.title}</h1>
         <p class="meta-row">{meta}</p>
         <p class="lede">{project.data.summary}</p>
-        {project.data.url && (
-          <p>
+        <div class="hero-actions">
+          {project.data.url && (
             <a class="button live-link" href={project.data.url} rel="noopener noreferrer">
               {project.data.urlLabel ?? "Open the live project"}
               <span class="ext-mark" aria-hidden="true">↗</span>
             </a>
-          </p>
-        )}
+          )}
+          {project.data.relatedPhotography && (
+            <a class="button button-ghost" href={`/photography/${project.data.relatedPhotography}`}>
+              Photography collection
+            </a>
+          )}
+        </div>
       </div>
     </header>
 
-    <figure class="media wrap">
+    <figure class="photo-hero-figure wrap">
       <img
         src={project.data.hero}
         alt={project.data.heroAlt}
@@ -83,6 +89,15 @@ const meta = [project.data.category, statusLabel(project.data.status), project.d
         <div class="prose">
           <Content />
         </div>
+
+        {project.data.disciplines.length > 0 && (
+          <div style="margin-top: 2.5rem;">
+            <h2 class="section-title section-title-small">Disciplines</h2>
+            <ul class="tech-list">
+              {project.data.disciplines.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        )}
 
         {project.data.technologies.length > 0 && (
           <div style="margin-top: 2.5rem;">
@@ -110,13 +125,7 @@ const meta = [project.data.category, statusLabel(project.data.status), project.d
       <section class="section-tight">
         <div class="wrap">
           <h2 class="section-title">Images</h2>
-          <div class="gallery">
-            {project.data.gallery.map((image) => (
-              <figure class="media">
-                <img src={image.src} alt={image.alt} width="960" height="640" loading="lazy" decoding="async" />
-              </figure>
-            ))}
-          </div>
+          <PhotoGallery images={project.data.gallery} />
         </div>
       </section>
     )}

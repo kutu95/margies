@@ -2,6 +2,9 @@
 title: "Custom Software & Prototypes"
 summary: "Smaller systems built for a specific job: greenhouse monitors, cashbook tools, drone planning, photographic utilities and other niche workflows."
 category: Software / prototypes
+disciplines:
+  - Software
+  - Electronics
 technologies:
   - Web applications
   - Dashboards

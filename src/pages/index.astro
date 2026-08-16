@@ -1,44 +1,67 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CollectionCard from "../components/CollectionCard.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { site } from "../config/site";
+import { getFeaturedPhotography } from "../lib/photography";
 import { getFeaturedProjects } from "../lib/projects";
 import { personJsonLd, websiteJsonLd } from "../lib/seo";
 
 const featured = await getFeaturedProjects();
+const featuredPhotography = await getFeaturedPhotography();
 ---
 
 <BaseLayout
   title={site.title}
   description={site.description}
   path="/"
+  image="/images/photography/coast/little-rock.jpg"
+  imageAlt="A winter wave breaking over dark rocks on the Margaret River coast"
   jsonLd={[personJsonLd(), websiteJsonLd()]}
 >
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
+  <section class="photo-hero">
+    <figure class="photo-hero-media">
+      <img
+        src="/images/photography/coast/little-rock.jpg"
+        alt="A winter wave crashing against dark coastal rocks, with white spray and a heavy sky"
+        width="2000"
+        height="1333"
+        fetchpriority="high"
+      />
+    </figure>
+    <div class="wrap">
+      <div class="photo-hero-copy">
         <p class="eyebrow">{site.region}</p>
-        <h1 class="display">I build useful things with software, AI and electronics.</h1>
+        <h1 class="display">I make photographs, software and unusual things.</h1>
         <p class="lede">
-          Custom software, interactive experiences, monitoring systems and technical
-          prototypes — usually for problems where nothing off the shelf quite fits.
+          Photography, creative technology and custom digital systems — usually following
+          an idea or a real-world problem wherever it leads.
         </p>
         <div class="hero-actions">
-          <a class="button" href="/projects">Projects</a>
-          <a class="button button-ghost" href="/about">About</a>
+          <a class="button" href="/photography">Photography</a>
+          <a class="button button-ghost" href="/projects">Projects</a>
           <a class="button button-ghost" href="/contact">Contact</a>
         </div>
       </div>
-      <figure class="hero-figure">
-        <img
-          src="/images/projects/georgette/hero.jpg"
-          alt="Aerial photograph of the SS Georgette wreck in clear water off Redgate Beach, near Margaret River"
-          width="1200"
-          height="900"
-          fetchpriority="high"
-        />
-        <figcaption>SS Georgette, Redgate Beach — a project that became an exhibition, a book, and a set of installations.</figcaption>
-      </figure>
+    </div>
+  </section>
+
+  <hr class="rule wrap" />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Selected photography</p>
+          <h2 class="section-title">Pictures that stand alone, and some that didn’t.</h2>
+        </div>
+        <a href="/photography">All photography</a>
+      </div>
+      <div class="collection-grid">
+        {featuredPhotography.map((collection) => (
+          <CollectionCard collection={collection} />
+        ))}
+      </div>
     </div>
   </section>
 
@@ -63,19 +86,19 @@ const featured = await getFeaturedProjects();
 
   <section class="section">
     <div class="wrap">
-      <p class="section-kicker">What I build</p>
-      <h2 class="section-title">Software for odd, specific problems.</h2>
+      <p class="section-kicker">What the work looks like</p>
+      <h2 class="section-title">Creative and technical problem-solving.</h2>
       <div class="capability-grid" style="margin-top: 2rem;">
+        <article class="capability">
+          <h3>Photography</h3>
+          <p>Coastal, underwater and documentary pictures — and the projects that grow out of them.</p>
+        </article>
         <article class="capability">
           <h3>Custom applications</h3>
           <p>Web tools shaped around a real workflow, not a generic product category.</p>
         </article>
         <article class="capability">
-          <h3>Sensors and dashboards</h3>
-          <p>Arduino, Raspberry Pi and wireless networks that watch a place and say when something is wrong.</p>
-        </article>
-        <article class="capability">
-          <h3>Exhibition technology</h3>
+          <h3>Exhibition and immersive work</h3>
           <p>Projection, interaction and digital reconstruction for rooms that have to do more than hang pictures.</p>
         </article>
       </div>
@@ -91,7 +114,7 @@ const featured = await getFeaturedProjects();
     <div class="wrap split-grid">
       <div>
         <p class="section-kicker">About</p>
-        <h2 class="section-title">The common thread isn’t the industry. It’s solving the problem.</h2>
+        <h2 class="section-title">The common thread isn’t the medium. It’s curiosity and solving the problem.</h2>
       </div>
       <div>
         <p>
@@ -100,9 +123,8 @@ const featured = await getFeaturedProjects();
           lot of time building the software and electronics that those jobs quietly required.
         </p>
         <p>
-          I tend to end up making the thing that should already exist. Sometimes that’s a
-          reporting tool. Sometimes it’s a sensor network. Sometimes it’s a digital captain
-          visitors can talk to.
+          Photography, software, farming, electronics and immersive rooms are different
+          expressions of the same habit: follow the idea until the useful thing exists.
         </p>
         <p><a href="/about">More about the work</a></p>
       </div>

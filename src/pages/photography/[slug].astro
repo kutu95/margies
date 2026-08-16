@@ -1,0 +1,130 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PhotoGallery from "../../components/PhotoGallery.astro";
+import {
+  getPhotographyCollections,
+  neighbours,
+  photographyPath,
+  type PhotographyCollection,
+} from "../../lib/photography";
+import { breadcrumbJsonLd, collectionPageJsonLd } from "../../lib/seo";
+
+export async function getStaticPaths() {
+  const collections = await getPhotographyCollections();
+  return collections.map((collection) => ({
+    params: { slug: collection.id },
+    props: { collection, collections },
+  }));
+}
+
+interface Props {
+  collection: PhotographyCollection;
+  collections: PhotographyCollection[];
+}
+
+const { collection, collections } = Astro.props;
+const { Content } = await render(collection);
+const path = photographyPath(collection);
+const title = collection.data.seoTitle ?? `${collection.data.title} — Photography — John Bowskill`;
+const description = collection.data.seoDescription ?? collection.data.description;
+const meta = [collection.data.location, collection.data.year].filter(Boolean).join(" · ");
+const { previous, next } = neighbours(collection, collections);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  image={collection.data.hero}
+  imageAlt={collection.data.heroAlt}
+  type="article"
+  jsonLd={[
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Photography", path: "/photography" },
+      { name: collection.data.title, path },
+    ]),
+    collectionPageJsonLd({
+      name: collection.data.title,
+      description,
+      path,
+      images: [
+        { src: collection.data.hero, alt: collection.data.heroAlt },
+        ...collection.data.gallery.map((image) => ({
+          src: image.src,
+          alt: image.alt,
+        })),
+      ],
+    }),
+  ]}
+>
+  <article>
+    <header class="page-hero">
+      <div class="wrap">
+        <p class="section-kicker">
+          <a href="/photography">Photography</a>
+        </p>
+        <h1 class="page-title">{collection.data.title}</h1>
+        {meta && <p class="meta-row">{meta}</p>}
+        <p class="lede">{collection.data.description}</p>
+        <div class="hero-actions">
+          {collection.data.relatedProject && (
+            <a class="button button-ghost" href={`/projects/${collection.data.relatedProject}`}>
+              {collection.data.relatedProjectLabel ?? "Related project"}
+            </a>
+          )}
+          {collection.data.url && (
+            <a class="button button-ghost" href={collection.data.url} rel="noopener noreferrer">
+              {collection.data.urlLabel ?? "Open related site"}
+              <span class="ext-mark" aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </header>
+
+    <figure class="photo-hero-figure wrap">
+      <img
+        src={collection.data.hero}
+        alt={collection.data.heroAlt}
+        width="2000"
+        height="1250"
+        fetchpriority="high"
+      />
+    </figure>
+
+    <div class="section-tight">
+      <div class="wrap">
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+    </div>
+
+    {collection.data.gallery.length > 0 && (
+      <section class="section-tight">
+        <div class="wrap">
+          <h2 class="section-title section-title-small">Photographs</h2>
+          <PhotoGallery images={collection.data.gallery} />
+        </div>
+      </section>
+    )}
+
+    <nav class="section-tight" aria-label="Photography collections">
+      <div class="wrap collection-nav">
+        {previous ? (
+          <a href={photographyPath(previous)}>← {previous.data.title}</a>
+        ) : (
+          <span></span>
+        )}
+        <a href="/photography">All photography</a>
+        {next ? (
+          <a href={photographyPath(next)}>{next.data.title} →</a>
+        ) : (
+          <span></span>
+        )}
+      </div>
+    </nav>
+  </article>
+</BaseLayout>

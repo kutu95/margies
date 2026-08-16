@@ -2,6 +2,11 @@
 title: "Digital Humans / Unreal Engine"
 summary: "Experiments with MetaHumans, facial capture, photogrammetry and interactive historical characters — including a digital Captain Godfrey for the Georgette exhibition."
 category: Real-time 3D / research
+disciplines:
+  - 3D
+  - AI
+  - Immersive
+  - Research
 technologies:
   - Unreal Engine
   - MetaHuman

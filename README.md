@@ -1,6 +1,6 @@
 # margies.app
 
-Personal and professional site for **John Bowskill**, based in the Margaret River region of Western Australia.
+Personal and professional site for **John Bowskill** — photography, creative technology and custom projects — based in the Margaret River region of Western Australia.
 
 This repository is the root website for `https://margies.app`. It is not the Georgette exhibition (`exhibition.margies.app`) and not Metal My Mini (`metal.margies.app`). Those remain separate applications. This site introduces the work and links to them.
 
@@ -11,7 +11,7 @@ The `margies.app` directory was empty. The exhibition and Metal My Mini apps are
 - **Framework:** Astro 7 (static output)
 - **Package manager:** npm
 - **Node:** 24 (see `.nvmrc`; Astro 7 needs Node 22+)
-- **Content:** Markdown in `src/content/projects/`
+- **Content:** Markdown in `src/content/projects/` and `src/content/photography/`
 - **Config:** `src/config/site.ts`
 - **Hosting assumption:** Cloudflare Pages, with DNS for `margies.app` pointed at this project
 
@@ -35,7 +35,18 @@ npm run preview
 6. Set `featured: true` if it should appear on the home page.
 7. Rebuild. No architectural change is required.
 
-Schema lives in `src/content.config.ts`.
+Schema lives in `src/content.config.ts`. Projects can list more than one `discipline` (Photography, Software, AI, Electronics, 3D, Immersive, Research, Hardware) without a tagging UI.
+
+## Adding a photography collection
+
+1. Create a Markdown file in `src/content/photography/`. The filename is the URL: `underwater.md` → `/photography/underwater`.
+2. Fill in title, description, hero, gallery, and any optional fields (year, location, related project, external link).
+3. Put images in `public/images/photography/<folder>/`.
+4. Point `hero` and `gallery` at those paths. See `public/images/photography/README.md` for the replacement workflow.
+5. Set `featured: true` if the collection should appear on the home page.
+6. Rebuild.
+
+Gallery images can include optional `title`, `caption`, `alt`, `location`, `year`, `width` and `height`. Only `src` and `alt` are required. Alt text should describe the picture, not repeat keywords.
 
 ## Configuration
 
@@ -83,7 +94,9 @@ After a production deploy, confirm there is no `noindex` on real pages, that can
 
 ## Assets still needed
 
-The first version uses two of John’s existing photographs (Georgette wreck, Redgate) plus the Metal My Mini hero and John’s portrait. Other project images are local SVG placeholders in `public/images/projects/`. Replace them by dropping files in the same folders and updating frontmatter if the filename changes.
+Photography collections live in `src/content/photography/`. Image files live in `public/images/photography/` — see that folder’s README for how to replace placeholders.
+
+The site uses John’s existing photographs for Georgette, underwater and coast work, plus the Metal My Mini hero and John’s portrait. Farm and People collections, and some project images, are labelled local SVG placeholders.
 
 Still useful later:
 
@@ -156,4 +169,4 @@ npm run build
 npm run preview
 ```
 
-Then check `/`, `/projects`, each project page, `/services`, `/about`, `/contact`, `/sitemap-index.xml`, and `/robots.txt` at a desktop width and a phone width.
+Then check `/`, `/photography`, a collection such as `/photography/ss-georgette`, `/projects`, `/projects/ss-georgette-150th`, `/services`, `/about`, `/contact`, `/sitemap-index.xml`, and `/robots.txt` at a desktop width and a phone width.

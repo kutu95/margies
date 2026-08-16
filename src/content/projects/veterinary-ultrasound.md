@@ -2,6 +2,8 @@
 title: "Veterinary Ultrasound Reporting System"
 summary: "A custom web application for recording veterinary ultrasound examinations and producing structured reports from a specialised clinical workflow."
 category: Custom software
+disciplines:
+  - Software
 technologies:
   - Web application
   - Structured data entry

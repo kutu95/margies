@@ -1,7 +1,14 @@
 ---
 title: "SS Georgette — 150th Anniversary Exhibition"
-summary: "A photographic and immersive exhibition about the wreck of the SS Georgette, built from years of research, fieldwork and custom installation software."
-category: Exhibition / creative technology
+summary: "Photography, history and immersive technology around the wreck of the SS Georgette — a project that began with pictures and grew into research, an exhibition and the software to run it."
+category: Photography / immersive
+disciplines:
+  - Photography
+  - Immersive
+  - Research
+  - Software
+  - 3D
+  - AI
 technologies:
   - Historical research
   - Photography
@@ -14,24 +21,35 @@ technologies:
 status: live
 url: https://exhibition.margies.app
 urlLabel: Open the live exhibition
+relatedPhotography: ss-georgette
 hero: /images/projects/georgette/hero.jpg
 heroAlt: Aerial photograph of the SS Georgette wreck lying in clear water off Redgate Beach
 gallery:
-  - src: /images/projects/georgette/redgate.jpg
+  - src: /images/photography/georgette/wreck-aerial.jpg
+    alt: Aerial photograph of the SS Georgette wreck in clear turquoise water off Redgate Beach
+    width: 1024
+    height: 576
+  - src: /images/photography/georgette/redgate.jpg
     alt: Redgate Beach in the Margaret River region, near the site of the SS Georgette wreck
+    width: 2400
+    height: 736
+  - src: /images/photography/georgette/installation.jpg
+    alt: Underwater photographs projected across the walls of a dark installation room
+    width: 1800
+    height: 1200
 year: "2026"
 featured: true
 order: 1
-seoTitle: "SS Georgette 150th Exhibition — John Bowskill"
-seoDescription: "The Georgette 150th is a photographic and immersive exhibition by John Bowskill about the wreck of the SS Georgette near Margaret River, Western Australia."
+seoTitle: "SS Georgette — photography, history and immersive technology — John Bowskill"
+seoDescription: "The Georgette 150th began as photographic and historical work on the wreck at Redgate Beach and grew into an immersive exhibition, digital reconstruction and custom installation software."
 meta:
   Location: Margaret River region, Western Australia
   Live site: exhibition.margies.app
 ---
 
-The SS Georgette foundered off Redgate Beach on 1 December 1876. The wreck is still there, in water shallow enough that a clear day and a low tide can show the whole length of the ship from the air. I live a short way inland from that beach. The exhibition grew out of not being able to leave the story alone.
+The SS Georgette foundered off Redgate Beach on 1 December 1876. The wreck is still there, in water shallow enough that a clear day and a low tide can show the whole length of the ship from the air. I live a short way inland from that beach. The work began as photography and historical curiosity. It became an exhibition because the pictures needed a room, and the room needed tools that did not exist.
 
-[The live site is at exhibition.margies.app](https://exhibition.margies.app). It is a full exhibition website — prints, history, installations, visiting information — and it remains the home of that project. This page is about how the work was made.
+[The live site is at exhibition.margies.app](https://exhibition.margies.app). The photographs have their own home in the [SS Georgette photography collection](/photography/ss-georgette). This page is about how those pictures turned into research, installations and software.
 
 ## What the exhibition is
 
@@ -59,4 +77,6 @@ AI is used in this project mainly to make tools and to accelerate research — n
 
 ## Why it sits on this site
 
-exhibition.margies.app is the exhibition. margies.app is the rest of the work. The Georgette project is the clearest example I have of photography, history, software, electronics and a physical room being treated as one problem rather than five separate hobbies.
+exhibition.margies.app is the exhibition. The [photographs](/photography/ss-georgette) are a collection of their own. This page is the join: a project that started with a camera and a wreck and ended with underwater fieldwork, archival research, exhibition design, multi-projector rooms, digital reconstruction, Unreal Engine, a MetaHuman captain, and the unglamorous software that keeps a visitor in the story long enough to care.
+
+It is the clearest example I have of photography and technical work being the same problem.

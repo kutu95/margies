@@ -1,0 +1,31 @@
+---
+import { photographyPath, type PhotographyCollection } from "../lib/photography";
+
+interface Props {
+  collection: PhotographyCollection;
+  headingLevel?: "h2" | "h3";
+  sizes?: string;
+}
+
+const { collection, headingLevel = "h3", sizes = "(min-width: 760px) 50vw, 100vw" } = Astro.props;
+const Heading = headingLevel;
+const href = photographyPath(collection);
+const meta = [collection.data.location, collection.data.year].filter(Boolean).join(" · ");
+---
+
+<article>
+  <a class="collection-card" href={href}>
+    <img
+      src={collection.data.hero}
+      alt={collection.data.heroAlt}
+      width="1600"
+      height="1000"
+      loading="lazy"
+      decoding="async"
+      sizes={sizes}
+    />
+    {meta && <p class="project-card-meta">{meta}</p>}
+    <Heading class="card-title">{collection.data.title}</Heading>
+    <p>{collection.data.description}</p>
+  </a>
+</article>
