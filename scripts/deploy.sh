@@ -12,7 +12,8 @@ if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
 fi
 
 echo "→ Pulling latest code"
-git pull --ff-only
+git fetch origin
+git reset --hard origin/main
 
 echo "→ Installing dependencies"
 npm ci
