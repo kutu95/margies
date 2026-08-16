@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 
-Sitemap: https://margies.app/sitemap-index.xml
+Sitemap: https://margies.app/sitemap.xml

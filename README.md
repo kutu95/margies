@@ -93,11 +93,11 @@ The form UI is on `/contact`. There is no backend in this repo.
 - Canonical URLs
 - Open Graph and Twitter/X card tags
 - `robots.txt` allows crawling and points at the sitemap
-- `@astrojs/sitemap` writes `/sitemap-index.xml`
+- A single `/sitemap.xml` lists the public pages
 - JSON-LD for `Person` and `WebSite` only where it is accurate
 - Project pages are prerendered HTML
 
-After a production deploy, confirm there is no `noindex` on real pages, that canonicals use `https://margies.app`, and that `https://margies.app/robots.txt` and `https://margies.app/sitemap-index.xml` are reachable.
+After a production deploy, confirm there is no `noindex` on real pages, that canonicals use `https://margies.app`, and that `https://margies.app/robots.txt` and `https://margies.app/sitemap.xml` are reachable.
 
 ## Google Search Console
 
@@ -105,7 +105,7 @@ After a production deploy, confirm there is no `noindex` on real pages, that can
 2. Remove the current redirect from `margies.app` to `exhibition.margies.app`.
 3. Add `margies.app` in Search Console as a **Domain property**.
 4. Verify with the DNS TXT record Cloudflare shows you.
-5. Submit `https://margies.app/sitemap-index.xml`.
+5. Submit `https://margies.app/sitemap.xml`.
 6. Inspect `/`, `/projects`, `/about`, `/services`, `/contact`, and a couple of project URLs.
 7. Request indexing only after those production URLs return the new site, not the exhibition redirect.
 
@@ -186,4 +186,4 @@ npm run build
 npm run preview
 ```
 
-Then check `/`, `/photography`, a collection such as `/photography/ss-georgette`, `/projects`, `/projects/ss-georgette-150th`, `/services`, `/about`, `/contact`, `/sitemap-index.xml`, and `/robots.txt` at a desktop width and a phone width.
+Then check `/`, `/photography`, a collection such as `/photography/ss-georgette`, `/projects`, `/projects/ss-georgette-150th`, `/services`, `/about`, `/contact`, `/sitemap.xml`, and `/robots.txt` at a desktop width and a phone width.

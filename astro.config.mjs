@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
-import sitemap from "@astrojs/sitemap";
 import { publicDir } from "./src/lib/content-paths";
 
 export default defineConfig({
@@ -8,14 +7,6 @@ export default defineConfig({
   trailingSlash: "never",
   compressHTML: true,
   publicDir: publicDir(),
-  integrations: [
-    sitemap({
-      changefreq: "monthly",
-      priority: 0.7,
-      lastmod: new Date(),
-      filter: (page) => !page.includes("/404"),
-    }),
-  ],
   fonts: [
     {
       provider: fontProviders.fontsource(),
