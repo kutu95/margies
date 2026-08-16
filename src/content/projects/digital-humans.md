@@ -38,7 +38,7 @@ The Georgette exhibition includes an interactive reconstruction of the ship’s 
 
 It is not a séance and it is not a documentary. It is a way to hold a conversation with a historical figure whose ship is still on the bottom of a local bay. The ethics of that are worth arguing about. I would rather argue them in front of a working prototype than in the abstract.
 
-More of the exhibition context is on the [Georgette project page](/projects/ss-georgette-150th) and at [exhibition.margies.app](https://exhibition.margies.app).
+How that work sits in the wider project is on [Building the Exhibition](/projects/ss-georgette-150th). The public exhibition is at [exhibition.margies.app](https://exhibition.margies.app/).
 
 ## The stack around a face
 

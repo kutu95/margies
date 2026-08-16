@@ -1,6 +1,6 @@
 ---
-title: "SS Georgette — 150th Anniversary Exhibition"
-summary: "Photography, history and immersive technology around the wreck of the SS Georgette — a project that began with pictures and grew into research, an exhibition and the software to run it."
+title: "SS Georgette 150th — Building the Exhibition"
+summary: "How a local wreck became a photographic and immersive exhibition — pictures, research, rooms, and the software needed to run them."
 category: Photography / immersive
 disciplines:
   - Photography
@@ -10,17 +10,19 @@ disciplines:
   - 3D
   - AI
 technologies:
-  - Historical research
   - Photography
   - Underwater imagery
+  - Historical research
   - Multi-projector installation
+  - Cubarama Studio
+  - Drift
   - Unreal Engine
   - MetaHuman
+  - Photogrammetry
   - Custom software
-  - AI-assisted research
 status: live
-url: https://exhibition.margies.app
-urlLabel: Open the live exhibition
+url: https://exhibition.margies.app/
+urlLabel: Visit the SS Georgette 150th Anniversary Photographic Exhibition
 relatedPhotography: ss-georgette
 hero: /images/projects/georgette/hero.jpg
 heroAlt: Aerial photograph of the SS Georgette wreck lying in clear water off Redgate Beach
@@ -40,43 +42,57 @@ gallery:
 year: "2026"
 featured: true
 order: 1
-seoTitle: "SS Georgette — photography, history and immersive technology — John Bowskill"
-seoDescription: "The Georgette 150th began as photographic and historical work on the wreck at Redgate Beach and grew into an immersive exhibition, digital reconstruction and custom installation software."
+seoTitle: "SS Georgette 150th — Building the Exhibition — John Bowskill"
+seoDescription: "How John Bowskill made the Georgette 150th: wreck photography, historical research, exhibition design, multi-projector rooms and experimental digital reconstruction."
 meta:
   Location: Margaret River region, Western Australia
   Live site: exhibition.margies.app
 ---
 
-The SS Georgette foundered off Redgate Beach on 1 December 1876. The wreck is still there, in water shallow enough that a clear day and a low tide can show the whole length of the ship from the air. I live a short way inland from that beach. The work began as photography and historical curiosity. It became an exhibition because the pictures needed a room, and the room needed tools that did not exist.
+This page is about making the work. The photographs are in the [SS Georgette collection](/photography/ss-georgette).
 
-[The live site is at exhibition.margies.app](https://exhibition.margies.app). The photographs have their own home in the [SS Georgette photography collection](/photography/ss-georgette). This page is about how those pictures turned into research, installations and software.
+**[The Georgette 150th](https://exhibition.margies.app/) is an independent photographic and immersive exhibition by John Bowskill.** This site records how it was built.
 
-## What the exhibition is
+## The project
 
-The Georgette 150th is a photographic and immersive exhibition for Margaret River Region Open Studios in September 2026. It combines still photographs from Calgardup Bay, Redgate Beach and Isaac Rock with rooms that do more than hang pictures on a wall.
+I live a short way inland from Redgate Beach. The wreck of the SS Georgette is still in the bay. I photographed it for years before I had a reason to put the pictures in a room.
 
-The photographs include land, drone and underwater work. Some of the most useful images of the wreck are the ones that only exist because the swell, the tide, the sand and the light lined up on a particular morning. The rest of the project is an attempt to give those images a context that a caption cannot carry.
+The exhibition exists because the photographs needed more context than a caption, and because the 150th anniversary of the wreck gave that work a public date: Margaret River Region Open Studios, 12–27 September 2026. The question was practical. What would a visitor need in order to stay with those pictures long enough to care?
 
-## Research, not just pictures
+## Photography
 
-The ship has a dense, poorly summarised history: a record-breaking mail run from London to Fremantle, a brief turn as a battleship, repeated groundings, the final sinking, the stories that grew around Grace Bussell and Sam Isaacs, a twenty-year-old mother who kept a baby alive in the water overnight, propellers recovered and lost again, a bell that hung in a tree for decades.
+The work started in the water and on the beach. Land, drone and underwater photographs of Calgardup Bay, Redgate Beach and Isaac Rock, made over years rather than in a single field trip. Some of the most useful images of the wreck only exist because the swell, the tide, the sand and the light lined up on a particular morning.
 
-I followed that trail far enough that it included a trip to the Clyde, to the site of the yard where the ship was built — close, by chance, to where my father was born. There is now a book as well as an exhibition. The point of the research was not to decorate the photographs. It was to stop the wreck being only a shape in the sand.
+Later the same pictures had to hold a room: large prints, sequences, and footage that could be projected rather than framed. That changed what “finished” meant. A photograph that works on a screen is not automatically a photograph that can carry a wall.
 
-## Installations and custom tools
+Those pictures are collected separately in [SS Georgette photography](/photography/ss-georgette).
 
-Telling this story in a room required tools that did not exist in a useful form.
+## Historical research
 
-Cuborama Studio is a video editor I wrote for four-wall projection cinema, because nothing I could find was built for that format. Layer Painter helps assemble large digital compositions and murals. The Drift installation runs on a custom application that chooses what photograph to show from the way a visitor moves in front of it. None of those would have been worth building for a single weekend; they were worth building because the exhibition needed them and because they are likely to be useful again.
+A wreck in local water is easy to treat as a shape. I did not want the exhibition to do that, so the photographs had to sit next to a record I was willing to stand behind.
 
-There is also a digital Captain Godfrey: a MetaHuman reconstruction of the Georgette’s captain that visitors can speak with, running in Unreal Engine with a voice system and a model standing in for the captain’s knowledge of his own ship. That work is described more fully on the [digital humans](/projects/digital-humans) page. It is experimental, and I am not pretending otherwise.
+That meant reading what survives of the ship, the people, and the wreck — and going to the Clyde, to the site of the yard where she was built, which is close, by chance, to where my father was born. There is a book as well as an exhibition. The research was a production problem: what does a visitor need to know, and what should be left as an open question?
 
-## AI, used as a toolmaker
+The historical narrative itself belongs on the exhibition site, not here.
 
-AI is used in this project mainly to make tools and to accelerate research — not to generate a set of fake historical photographs and call it an exhibition. That distinction matters, and it is one I am happy to talk about. Some of the installations sit in contested territory. They should. A 150-year-old wreck does not need a costume drama pasted over it. It does need a way for a visitor to stay with the story long enough to care.
+## Building the exhibition
 
-## Why it sits on this site
+Turning a pile of photographs and notes into a public show is mostly unglamorous work. Prints. Sequencing. A room that has to behave. Light. Sound. Labels that do not lie. Software that does not fail when a visitor walks in.
 
-exhibition.margies.app is the exhibition. The [photographs](/photography/ss-georgette) are a collection of their own. This page is the join: a project that started with a camera and a wreck and ended with underwater fieldwork, archival research, exhibition design, multi-projector rooms, digital reconstruction, Unreal Engine, a MetaHuman captain, and the unglamorous software that keeps a visitor in the story long enough to care.
+Cubarama Studio is a video editor I wrote for four-wall projection, because nothing I could find was built for that format. Layer Painter helps assemble large digital compositions. The Drift installation runs on a custom application that chooses which photograph to show from the way a visitor moves in front of it. None of those would have been worth building for a single weekend. They were worth building because the exhibition needed them.
 
-It is the clearest example I have of photography and technical work being the same problem.
+## Creative technology
+
+Some of the rooms needed more than stills.
+
+There is a digital Captain Godfrey: a MetaHuman reconstruction of the Georgette’s captain that visitors can speak with, running in Unreal Engine, with facial-capture and photogrammetry experiments feeding the model. That work is described more fully on the [digital humans](/projects/digital-humans) page. It is experimental, and I am not pretending otherwise.
+
+AI is used here mainly to make tools and to accelerate research — not to generate a set of fake historical photographs and call it an exhibition. That distinction matters.
+
+## The exhibition
+
+The result is a public show: photographs, immersive rooms, visitor information, and the historical material that belongs with the pictures rather than with this making-of page.
+
+[Visit the SS Georgette 150th Anniversary Photographic Exhibition](https://exhibition.margies.app/).
+
+This page is the making of. That site is the exhibition.

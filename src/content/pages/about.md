@@ -22,6 +22,6 @@ I am a practical and creative generalist. Arduino and Raspberry Pi boards, wirel
 
 I am not trying to be a specialist in one narrow profession. Breadth is the point, as long as it stays attached to a real constraint: a greenhouse that has to stay alive, a report that a colleague has to finish, a visitor standing in a dark room who should understand something they didn’t understand when they walked in.
 
-If you want the work rather than the biography, start with [the photographs](/photography) or [the projects](/projects). The flagship overlap at the moment is [The Georgette 150th](/projects/ss-georgette-150th), which lives at [exhibition.margies.app](https://exhibition.margies.app). The rest of this site — margies.app — is the root for everything else.
+If you want the work rather than the biography, start with [the photographs](/photography) or [the projects](/projects). One current example is [building the Georgette 150th exhibition](/projects/ss-georgette-150th); the public exhibition is at [exhibition.margies.app](https://exhibition.margies.app/). This site — margies.app — is the root for everything else.
 
 [Get in touch](/contact)
