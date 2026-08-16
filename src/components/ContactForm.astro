@@ -1,0 +1,128 @@
+---
+/**
+ * Contact form.
+ *
+ * If PUBLIC_CONTACT_FORM_ENDPOINT is set, the form POSTs JSON to that URL.
+ * Otherwise it falls back to a mailto: action so the page still works
+ * without inventing a backend or API key.
+ *
+ * To wire a real backend later:
+ * 1. Create a Cloudflare Worker, Formspree form, or similar endpoint.
+ * 2. Accept JSON: { name, email, subject, message }.
+ * 3. Put the URL in PUBLIC_CONTACT_FORM_ENDPOINT.
+ * 4. Reject submissions when the honeypot field `company` is filled.
+ */
+import { site } from "../config/site";
+
+const endpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? "";
+const mailto = `mailto:${site.email}`;
+---
+
+<form
+  class="form"
+  id="contact-form"
+  method="post"
+  action={endpoint || mailto}
+  data-endpoint={endpoint}
+  data-email={site.email}
+>
+  <div class="honeypot" aria-hidden="true">
+    <label>
+      Company
+      <input type="text" name="company" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+
+  <label>
+    Name
+    <input type="text" name="name" autocomplete="name" required />
+  </label>
+
+  <label>
+    Email
+    <input type="email" name="email" autocomplete="email" required />
+  </label>
+
+  <label>
+    What are you trying to do?
+    <input
+      type="text"
+      name="subject"
+      placeholder="I wish there was something that could just…"
+    />
+  </label>
+
+  <label>
+    Message
+    <textarea name="message" required></textarea>
+  </label>
+
+  {endpoint ? (
+    <p class="form-note">Messages are sent through the site contact form.</p>
+  ) : (
+    <p class="form-note">
+      Submit opens a message to <a href={mailto}>{site.email}</a> in your email app.
+      You can also write there directly.
+    </p>
+  )}
+
+  <p class="form-status" data-form-status hidden></p>
+  <button class="button" type="submit">Send a message</button>
+</form>
+
+<script>
+  const form = document.getElementById("contact-form");
+  if (form instanceof HTMLFormElement) {
+    const status = form.querySelector("[data-form-status]");
+    const endpoint = form.dataset.endpoint ?? "";
+    const email = form.dataset.email ?? "";
+
+    form.addEventListener("submit", async (event) => {
+      const data = new FormData(form);
+      if (String(data.get("company") ?? "").trim()) {
+        event.preventDefault();
+        return;
+      }
+
+      const name = String(data.get("name") ?? "").trim();
+      const from = String(data.get("email") ?? "").trim();
+      const subject = String(data.get("subject") ?? "Project enquiry").trim();
+      const message = String(data.get("message") ?? "").trim();
+
+      if (!endpoint) {
+        event.preventDefault();
+        const body = [`From: ${name} <${from}>`, "", message].join("\n");
+        window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        return;
+      }
+
+      event.preventDefault();
+      if (status instanceof HTMLElement) {
+        status.hidden = true;
+      }
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ name, email: from, subject, message }),
+        });
+
+        if (!response.ok) throw new Error("Request failed");
+
+        form.reset();
+        if (status instanceof HTMLElement) {
+          status.hidden = false;
+          status.dataset.state = "ok";
+          status.textContent = "Thanks. I’ll get back to you.";
+        }
+      } catch {
+        if (status instanceof HTMLElement) {
+          status.hidden = false;
+          status.dataset.state = "error";
+          status.textContent = `The form could not be sent. Email ${email} instead.`;
+        }
+      }
+    });
+  }
+</script>

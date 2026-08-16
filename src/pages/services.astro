@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { breadcrumbJsonLd } from "../lib/seo";
+
+const title = "Services — Custom software for problems that don’t fit — John Bowskill";
+const description =
+  "Custom web applications, prototypes, monitoring systems, electronics and exhibition technology for problems that don’t have a standard product.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/services"
+  jsonLd={breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+  ])}
+>
+  <header class="page-hero">
+    <div class="wrap-narrow">
+      <p class="section-kicker">Working together</p>
+      <h1 class="page-title">Custom solutions for problems that don’t fit standard software.</h1>
+      <p class="lede">
+        I don’t sell packages. I look at the actual problem, decide whether a practical
+        system can be built, and then build it if the answer is yes.
+      </p>
+    </div>
+  </header>
+
+  <section class="section-tight">
+    <div class="wrap-narrow prose">
+      <h2>I wish there was something that could just…</h2>
+      <p>
+        A surprising number of useful projects start as an unfinished sentence. Someone
+        has a workflow that almost works, a place that needs watching, an exhibition that
+        needs a room to behave in a particular way, or a process that is being held
+        together with spreadsheets and memory.
+      </p>
+      <p>
+        The service is essentially this: take that unfinished sentence, work out what
+        “just” would have to do, and determine whether a practical solution can be built
+        with software, electronics, or both.
+      </p>
+      <p>
+        Sometimes the answer is a small web application. Sometimes it is a sensor and an
+        alert. Sometimes it is a prototype that proves the idea before anyone spends
+        serious money. Occasionally the honest answer is that an existing tool is good
+        enough, and you should use that instead.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">Kinds of work I take on</h2>
+      <div class="capability-grid" style="margin-top: 2rem;">
+        <article class="service">
+          <h3>Custom web applications</h3>
+          <p>Internal tools and public sites shaped around one job, not a product category.</p>
+        </article>
+        <article class="service">
+          <h3>Prototypes and proofs of concept</h3>
+          <p>Enough of a system to test the idea in the real world before committing further.</p>
+        </article>
+        <article class="service">
+          <h3>AI-assisted applications</h3>
+          <p>Using current models where they help — research, interfaces, generation — without pretending they replace judgement.</p>
+        </article>
+        <article class="service">
+          <h3>Dashboards and monitoring</h3>
+          <p>Historical data, alerts and a view of what a system is doing right now.</p>
+        </article>
+        <article class="service">
+          <h3>Arduino, Raspberry Pi and sensors</h3>
+          <p>Wireless networks, water quality, environment, greenhouses, and other places that need to be measured.</p>
+        </article>
+        <article class="service">
+          <h3>Workflow automation</h3>
+          <p>Connecting the steps people already do so the tedious part stops being manual.</p>
+        </article>
+        <article class="service">
+          <h3>Exhibition and installation technology</h3>
+          <p>Multi-projector rooms, interactive pieces, and the unglamorous software that keeps them running.</p>
+        </article>
+        <article class="service">
+          <h3>Interactive experiences</h3>
+          <p>Digital humans, spatial work and other experiments that have to hold up in front of a visitor.</p>
+        </article>
+        <article class="service">
+          <h3>Technical problem-solving</h3>
+          <p>The leftover category: unusual constraints, mixed disciplines, and jobs that don’t have a job title.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap-narrow prose">
+      <h2>How this usually starts</h2>
+      <p>
+        Send a plain description of the problem. What you have now, what you wish
+        happened, and any constraints that matter — budget, location, existing systems,
+        deadlines. I don’t publish fixed prices here because the work varies too much.
+        If it looks like a fit, we talk. If it doesn’t, I’ll say so.
+      </p>
+      <p>
+        Examples of finished work are on the <a href="/projects">projects</a> pages,
+        including the <a href="/projects/ss-georgette-150th">Georgette exhibition</a>,
+        <a href="/projects/metal-my-mini">Metal My Mini</a>, and
+        <a href="/projects/aquafarm-technology">aquafarm monitoring</a>.
+      </p>
+      <p><a class="button" href="/contact">Start with the unfinished sentence</a></p>
+    </div>
+  </section>
+</BaseLayout>

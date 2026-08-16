@@ -1,0 +1,7 @@
+# Cloudflare Pages project.
+# Create the project in the Cloudflare dashboard, then deploy `dist`
+# after `npm run build`. This file documents the intended output.
+
+name = "margies-app"
+compatibility_date = "2026-08-16"
+pages_build_output_dir = "dist"

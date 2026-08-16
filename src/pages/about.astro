@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../config/site";
+import { breadcrumbJsonLd, personJsonLd } from "../lib/seo";
+
+const title = "About John Bowskill — Margaret River";
+const description =
+  "John Bowskill is a practical generalist in the Margaret River region of Western Australia, working across software, electronics, photography, farming and exhibition technology.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/about"
+  image="/images/john-bowskill.jpg"
+  imageAlt="Portrait of John Bowskill in the Margaret River region"
+  jsonLd={[
+    personJsonLd(),
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "About", path: "/about" },
+    ]),
+  ]}
+>
+  <header class="page-hero">
+    <div class="wrap">
+      <p class="section-kicker">About</p>
+      <h1 class="page-title">The common thread isn’t the industry. It’s solving the problem.</h1>
+    </div>
+  </header>
+
+  <section class="section-tight">
+    <div class="wrap about-layout">
+      <figure class="portrait">
+        <img
+          src="/images/john-bowskill.jpg"
+          alt="John Bowskill standing outdoors in the Margaret River region"
+          width="800"
+          height="705"
+        />
+        <figcaption>John Bowskill, Margaret River region, Western Australia.</figcaption>
+      </figure>
+
+      <div class="prose">
+        <p>
+          I live near Margaret River, on a property that has been a group settlement block,
+          a dairy, an organic winery and now a shared family farm. I run an aquaponics
+          greenhouse there. I also write software, build electronics, take photographs, and
+          occasionally construct rooms that project images onto four walls at once.
+        </p>
+        <p>
+          That list looks scattered until you watch what actually happens. A farm needs
+          water-quality data, so sensors appear. A veterinary workflow needs structured
+          reports, so an application appears. A shipwreck on a local beach turns into years
+          of research, then an exhibition, then the software required to run the
+          exhibition. The job title keeps changing. The habit doesn’t.
+        </p>
+        <p>
+          I have a long history of solving practical problems, including years of
+          veterinary work. That background is useful. It teaches you to look carefully,
+          not to invent a more complicated story than the evidence supports, and to build
+          tools around the way people already work rather than the way a product manager
+          might prefer them to work.
+        </p>
+        <blockquote>
+          <p>I usually start building because an appropriate existing product doesn’t exist.</p>
+        </blockquote>
+        <p>
+          Curiosity is the other constant. Arduino and Raspberry Pi boards, wireless
+          sensor networks, AI-assisted development, photogrammetry, Unreal Engine,
+          MetaHumans, drones, underwater cameras — I pick these up because a particular
+          problem has made them necessary, then keep going when they turn out to be
+          interesting in their own right.
+        </p>
+        <p>
+          I am not trying to be a specialist in one narrow profession. Breadth is the
+          point, as long as it stays attached to a real constraint: a greenhouse that
+          has to stay alive, a report that a colleague has to finish, a visitor standing
+          in a dark room who should understand something they didn’t understand when they
+          walked in.
+        </p>
+        <p>
+          If you want the work rather than the biography, start with
+          <a href="/projects">the projects</a>. The flagship piece at the moment is
+          <a href="/projects/ss-georgette-150th">The Georgette 150th</a>, which lives at
+          <a href="https://exhibition.margies.app" rel="noopener noreferrer">exhibition.margies.app</a>.
+          The rest of this site — {site.shortName} — is the root for everything else.
+        </p>
+        <p><a href="/contact">Get in touch</a></p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

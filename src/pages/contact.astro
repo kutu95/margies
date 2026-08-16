@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { site } from "../config/site";
+import { breadcrumbJsonLd } from "../lib/seo";
+
+const title = "Contact John Bowskill";
+const description =
+  "Contact John Bowskill in the Margaret River region of Western Australia about an unusual technical or creative project.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/contact"
+  jsonLd={breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Contact", path: "/contact" },
+  ])}
+>
+  <header class="page-hero">
+    <div class="wrap-narrow">
+      <p class="section-kicker">Contact</p>
+      <h1 class="page-title">Tell me the problem.</h1>
+      <p class="lede">
+        Unusual technical or creative work is welcome. Ordinary requests for a generic
+        brochure site are less interesting, though I’ll still say if I can help.
+      </p>
+    </div>
+  </header>
+
+  <section class="section-tight">
+    <div class="wrap split-grid">
+      <div>
+        <p>
+          <strong>{site.name}</strong><br />
+          {site.region}
+        </p>
+        <p>
+          Email: <a href={`mailto:${site.email}`}>{site.email}</a>
+        </p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>

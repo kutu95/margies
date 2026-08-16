@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getProjects } from "../../lib/projects";
+import { breadcrumbJsonLd } from "../../lib/seo";
+
+const projects = await getProjects();
+const title = "Projects — John Bowskill";
+const description =
+  "Portfolio of custom software, exhibition technology, manufacturing tools, farm monitoring systems and digital-human experiments by John Bowskill.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/projects"
+  jsonLd={breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Projects", path: "/projects" },
+  ])}
+>
+  <header class="page-hero">
+    <div class="wrap">
+      <p class="section-kicker">Portfolio</p>
+      <h1 class="page-title">Projects</h1>
+      <p class="lede">
+        Real systems, not capability slides. Each project has its own page with the
+        problem, the approach and — where it exists — a link to the live site.
+      </p>
+    </div>
+  </header>
+
+  <section class="section-tight">
+    <div class="wrap project-grid">
+      {projects.map((project) => <ProjectCard project={project} headingLevel="h2" />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import { nav, site } from "../config/site";
+---
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <p>
+        <strong>{site.name}</strong><br />
+        {site.region}
+      </p>
+      <p>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      {nav.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+    <p>© {new Date().getFullYear()} {site.name}</p>
+  </div>
+</footer>

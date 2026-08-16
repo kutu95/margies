@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder for custom software screenshots</title>
+  <desc id="desc">Replace as individual tools get their own imagery.</desc>
+  <rect width="1600" height="1000" fill="#e4ddd0"/>
+  <g fill="none" stroke="#2c2a26" stroke-width="2">
+    <rect x="160" y="180" width="420" height="280"/>
+    <rect x="620" y="180" width="420" height="280"/>
+    <rect x="1080" y="180" width="360" height="280"/>
+    <rect x="160" y="520" width="620" height="300"/>
+    <rect x="820" y="520" width="620" height="300"/>
+    <path d="M200 240h340M200 290h280M200 340h300"/>
+    <path d="M660 240h340M660 290h260"/>
+    <path d="M1120 240h280M1120 290h200"/>
+    <path d="M200 580h540M200 640h400M200 700h480"/>
+    <path d="M860 580h540M860 640h360"/>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+# Canonical host is https://margies.app
+# www should be redirected in Cloudflare DNS / Pages custom domains.
+# This file is a fallback for Cloudflare Pages.
+
+/index.html /
+/projects/ /projects 301
+/services/ /services 301
+/about/ /about 301
+/contact/ /contact 301

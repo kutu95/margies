@@ -1,0 +1,134 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getProjects, projectPath, statusLabel, type Project } from "../../lib/projects";
+import { breadcrumbJsonLd, creativeWorkJsonLd } from "../../lib/seo";
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const path = projectPath(project);
+const title = project.data.seoTitle ?? `${project.data.title} — John Bowskill`;
+const description = project.data.seoDescription ?? project.data.summary;
+const meta = [project.data.category, statusLabel(project.data.status), project.data.year]
+  .filter(Boolean)
+  .join(" · ");
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  image={project.data.hero}
+  imageAlt={project.data.heroAlt}
+  type="article"
+  jsonLd={[
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Projects", path: "/projects" },
+      { name: project.data.title, path },
+    ]),
+    creativeWorkJsonLd({
+      name: project.data.title,
+      description,
+      path,
+      image: project.data.hero,
+      url: project.data.url,
+    }),
+  ]}
+>
+  <article>
+    <header class="page-hero">
+      <div class="wrap">
+        <p class="section-kicker">
+          <a href="/projects">Projects</a>
+        </p>
+        <h1 class="page-title">{project.data.title}</h1>
+        <p class="meta-row">{meta}</p>
+        <p class="lede">{project.data.summary}</p>
+        {project.data.url && (
+          <p>
+            <a class="button live-link" href={project.data.url} rel="noopener noreferrer">
+              {project.data.urlLabel ?? "Open the live project"}
+              <span class="ext-mark" aria-hidden="true">↗</span>
+            </a>
+          </p>
+        )}
+      </div>
+    </header>
+
+    <figure class="media wrap">
+      <img
+        src={project.data.hero}
+        alt={project.data.heroAlt}
+        width="1400"
+        height="875"
+        fetchpriority="high"
+      />
+    </figure>
+
+    <div class="section">
+      <div class="wrap">
+        <div class="prose">
+          <Content />
+        </div>
+
+        {project.data.technologies.length > 0 && (
+          <div style="margin-top: 2.5rem;">
+            <h2 class="section-title section-title-small">Technologies</h2>
+            <ul class="tech-list">
+              {project.data.technologies.map((tech) => <li>{tech}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {project.data.meta && (
+          <dl class="meta-list" style="margin-top: 1.5rem;">
+            {Object.entries(project.data.meta).map(([key, value]) => (
+              <div>
+                <dt>{key}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </div>
+    </div>
+
+    {project.data.gallery.length > 0 && (
+      <section class="section-tight">
+        <div class="wrap">
+          <h2 class="section-title">Images</h2>
+          <div class="gallery">
+            {project.data.gallery.map((image) => (
+              <figure class="media">
+                <img src={image.src} alt={image.alt} width="960" height="640" loading="lazy" decoding="async" />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="section-tight">
+      <div class="wrap inline-links">
+        <p>
+          <a href="/projects">← All projects</a>
+          {" · "}
+          <a href="/contact">Talk about a similar problem</a>
+        </p>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

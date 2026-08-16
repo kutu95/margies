@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder for ultrasound reporting screenshots</title>
+  <desc id="desc">Replace with anonymised interface screenshots if they can be shared.</desc>
+  <rect width="1600" height="1000" fill="#d8dce0"/>
+  <rect x="140" y="140" width="820" height="720" fill="#eef1f3" stroke="#6d767c" stroke-width="2"/>
+  <rect x="180" y="190" width="740" height="80" fill="#c5ccd1"/>
+  <rect x="180" y="300" width="740" height="24" fill="#b0b8be"/>
+  <rect x="180" y="350" width="560" height="24" fill="#b0b8be"/>
+  <rect x="180" y="400" width="640" height="24" fill="#b0b8be"/>
+  <rect x="180" y="500" width="740" height="280" fill="#cfd6db"/>
+  <rect x="1020" y="140" width="440" height="720" fill="#e7ebed" stroke="#6d767c" stroke-width="2"/>
+  <path d="M1060 420c40-80 80-40 120-90s80 10 120-40 80 20 140-30" fill="none" stroke="#3d4a52" stroke-width="4"/>
+</svg>

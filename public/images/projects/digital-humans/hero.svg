@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder for digital human stills</title>
+  <desc id="desc">Replace with Unreal Engine or MetaHuman screenshots.</desc>
+  <rect width="1600" height="1000" fill="#1b1d1c"/>
+  <g fill="none" stroke="#cfc6b4" stroke-width="1.5">
+    <ellipse cx="800" cy="430" rx="170" ry="220"/>
+    <ellipse cx="800" cy="400" rx="70" ry="90"/>
+    <path d="M680 360c40-70 200-70 240 0M700 520c50 70 150 70 200 0"/>
+    <path d="M630 430h-80M1050 430h80M800 210v-70M800 650v80"/>
+    <circle cx="745" cy="390" r="10"/>
+    <circle cx="855" cy="390" r="10"/>
+  </g>
+  <rect x="0" y="860" width="1600" height="140" fill="#111312"/>
+</svg>

@@ -1,0 +1,31 @@
+---
+import { projectPath, statusLabel, type Project } from "../lib/projects";
+
+interface Props {
+  project: Project;
+  headingLevel?: "h2" | "h3";
+}
+
+const { project, headingLevel = "h3" } = Astro.props;
+const Heading = headingLevel;
+const href = projectPath(project);
+const meta = [project.data.category, statusLabel(project.data.status), project.data.year]
+  .filter(Boolean)
+  .join(" · ");
+---
+
+<article>
+  <a class="project-card" href={href}>
+    <img
+      src={project.data.hero}
+      alt={project.data.heroAlt}
+      width="960"
+      height="600"
+      loading="lazy"
+      decoding="async"
+    />
+    <p class="project-card-meta">{meta}</p>
+    <Heading class="card-title">{project.data.title}</Heading>
+    <p>{project.data.summary}</p>
+  </a>
+</article>
