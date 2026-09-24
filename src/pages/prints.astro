@@ -1,0 +1,66 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CollectionCard from "../components/CollectionCard.astro";
+import { getPage } from "../lib/pages";
+import { getPhotographyCollections } from "../lib/photography";
+import { hasPhotograph } from "../lib/projects";
+import { breadcrumbJsonLd } from "../lib/seo";
+
+const page = await getPage("prints");
+const { Content } = await render(page);
+const collections = await getPhotographyCollections();
+const georgette = collections.find((collection) => collection.id === "ss-georgette");
+const others = collections.filter(
+  (collection) => collection.id !== "ss-georgette" && hasPhotograph(collection.data.hero),
+);
+const title = page.data.seoTitle ?? "Prints — Margies";
+const description = page.data.seoDescription ?? page.data.lede ?? "";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/prints"
+  image={georgette?.data.hero}
+  imageAlt={georgette?.data.heroAlt}
+  jsonLd={breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Prints", path: "/prints" },
+  ])}
+>
+  <header class="page-hero">
+    <div class="wrap">
+      <p class="section-kicker">{page.data.kicker}</p>
+      <h1 class="page-title">{page.data.headline}</h1>
+      <p class="lede">{page.data.lede}</p>
+    </div>
+  </header>
+
+  <section class="section-tight">
+    <div class="wrap prose">
+      <Content />
+    </div>
+  </section>
+
+  {georgette && (
+    <section class="section-tight">
+      <div class="wrap collection-grid">
+        <CollectionCard collection={georgette} headingLevel="h2" />
+      </div>
+    </section>
+  )}
+
+  {others.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title section-title-small">Other photographs</h2>
+        <div class="collection-grid" style="margin-top: 1.5rem;">
+          {others.map((collection) => (
+            <CollectionCard collection={collection} headingLevel="h3" />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

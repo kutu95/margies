@@ -8,6 +8,7 @@ import {
   photographyPath,
   type PhotographyCollection,
 } from "../../lib/photography";
+import { getProjects, projectPath } from "../../lib/projects";
 import { breadcrumbJsonLd, collectionPageJsonLd } from "../../lib/seo";
 
 export async function getStaticPaths() {
@@ -30,6 +31,14 @@ const title = collection.data.seoTitle ?? `${collection.data.title} — Photogra
 const description = collection.data.seoDescription ?? collection.data.description;
 const meta = [collection.data.location, collection.data.year].filter(Boolean).join(" · ");
 const { previous, next } = neighbours(collection, collections);
+const related = collection.data.relatedProject
+  ? (await getProjects()).find((project) => project.id === collection.data.relatedProject)
+  : undefined;
+const relatedHref = related
+  ? projectPath(related)
+  : collection.data.relatedProject
+    ? `/projects/${collection.data.relatedProject}`
+    : undefined;
 ---
 
 <BaseLayout
@@ -69,8 +78,8 @@ const { previous, next } = neighbours(collection, collections);
         {meta && <p class="meta-row">{meta}</p>}
         <p class="lede">{collection.data.description}</p>
         <div class="hero-actions">
-          {collection.data.relatedProject && (
-            <a class="button button-ghost" href={`/projects/${collection.data.relatedProject}`}>
+          {relatedHref && (
+            <a class="button button-ghost" href={relatedHref}>
               {collection.data.relatedProjectLabel ?? "Related project"}
             </a>
           )}

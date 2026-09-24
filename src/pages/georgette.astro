@@ -1,0 +1,110 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PhotoGallery from "../components/PhotoGallery.astro";
+import { getStudy, hasPhotograph } from "../lib/projects";
+import { breadcrumbJsonLd, creativeWorkJsonLd } from "../lib/seo";
+
+const project = await getStudy();
+if (!project) {
+  throw new Error("Missing Georgette case study");
+}
+const { Content } = await render(project);
+const title = project.data.seoTitle ?? `${project.data.title} — Margies`;
+const description = project.data.seoDescription ?? project.data.summary;
+const path = "/georgette";
+const showHero = hasPhotograph(project.data.hero);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  image={showHero ? project.data.hero : undefined}
+  imageAlt={showHero ? project.data.heroAlt : undefined}
+  type="article"
+  jsonLd={[
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Georgette 150th", path },
+    ]),
+    creativeWorkJsonLd({
+      name: project.data.title,
+      description,
+      path,
+      image: showHero ? project.data.hero : undefined,
+      url: project.data.url,
+    }),
+  ]}
+>
+  <article>
+    <header class="page-hero">
+      <div class="wrap">
+        <p class="section-kicker">Case study</p>
+        <h1 class="page-title">{project.data.title}</h1>
+        {project.data.pitch && <p class="lede">{project.data.pitch}</p>}
+        <p class="meta-row">Margaret River · {project.data.year}</p>
+        {project.data.url && (
+          <div class="hero-actions">
+            <a class="button" href={project.data.url} rel="noopener noreferrer">
+              {project.data.urlLabel ?? "Visit the exhibition"}
+              <span class="ext-mark" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        )}
+      </div>
+    </header>
+
+    {showHero && (
+      <figure class="photo-hero-figure wrap">
+        <img
+          src={project.data.hero}
+          alt={project.data.heroAlt}
+          width="1400"
+          height="788"
+          fetchpriority="high"
+        />
+      </figure>
+    )}
+
+    <div class="section">
+      <div class="wrap">
+        <div class="prose">
+          <Content />
+        </div>
+
+        {project.data.figures.length > 0 && (
+          <dl class="figure-list">
+            {project.data.figures.map((figure) => (
+              <div>
+                <dd>{figure.value}</dd>
+                <dt>{figure.label}</dt>
+              </div>
+            ))}
+          </dl>
+        )}
+      </div>
+    </div>
+
+    {project.data.gallery.length > 0 && (
+      <section class="section-tight">
+        <div class="wrap">
+          <h2 class="section-title section-title-small">Photographs</h2>
+          <PhotoGallery images={project.data.gallery} />
+        </div>
+      </section>
+    )}
+
+    <section class="section-tight">
+      <div class="wrap inline-links">
+        <p>
+          <a href="/work">The four works</a>
+          {" · "}
+          <a href="/prints">Prints</a>
+          {" · "}
+          <a href="/contact">Enquire</a>
+        </p>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

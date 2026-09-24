@@ -1,17 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import CollectionCard from "../components/CollectionCard.astro";
-import ProjectCard from "../components/ProjectCard.astro";
 import { site } from "../config/site";
 import { getPage } from "../lib/pages";
-import { getFeaturedPhotography } from "../lib/photography";
-import { getFeaturedProjects } from "../lib/projects";
-import { personJsonLd, websiteJsonLd } from "../lib/seo";
+import { getStudy, getWorks, hasPhotograph, projectPath } from "../lib/projects";
+import { organizationJsonLd, personJsonLd, websiteJsonLd } from "../lib/seo";
 
 const page = await getPage("home");
 const copy = page.data;
-const featured = await getFeaturedProjects();
-const featuredPhotography = await getFeaturedPhotography();
+const works = await getWorks();
+const [lead, ...rest] = works;
+const study = await getStudy();
 ---
 
 <BaseLayout
@@ -20,110 +18,86 @@ const featuredPhotography = await getFeaturedPhotography();
   path="/"
   image={copy.heroImage}
   imageAlt={copy.heroAlt}
-  jsonLd={[personJsonLd(), websiteJsonLd()]}
+  jsonLd={[personJsonLd(), organizationJsonLd(), websiteJsonLd()]}
 >
-  <section class="photo-hero">
-    <figure class="photo-hero-media">
+  <section class="opening">
+    <figure class="opening-media">
       <img
         src={copy.heroImage}
         alt={copy.heroAlt ?? ""}
-        width="2000"
-        height="1333"
+        width="1800"
+        height="1200"
         fetchpriority="high"
       />
     </figure>
-    <div class="wrap">
-      <div class="photo-hero-copy">
-        <p class="eyebrow">{site.region}</p>
-        <h1 class="display">{copy.headline}</h1>
-        <p class="lede">{copy.lede}</p>
-        <div class="hero-actions">
-          <a class="button" href="/photography">Photography</a>
-          <a class="button button-ghost" href="/projects">Projects</a>
-          <a class="button button-ghost" href="/contact">Contact</a>
-        </div>
+    <div class="wrap opening-copy">
+      <p class="eyebrow">{site.name}</p>
+      <h1 class="display">{copy.headline}</h1>
+      <p class="lede">{copy.lede}</p>
+      <div class="hero-actions">
+        <a class="button" href="/contact">Enquire</a>
       </div>
     </div>
   </section>
 
-  <hr class="rule wrap" />
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <p class="section-kicker">{copy.photoKicker}</p>
-          <h2 class="section-title">{copy.photoTitle}</h2>
-        </div>
-        <a href="/photography">{copy.photoLink}</a>
+  {lead && (
+    <section class="lead-work">
+      <div class="wrap">
+        <p class="eyebrow">Work</p>
+        <h2 class="lead-title">{lead.data.title}</h2>
+        {lead.data.pitch && <p class="lead-pitch">{lead.data.pitch}</p>}
+        <p class="lead-summary">{lead.data.summary}</p>
+        <p class="lead-link">
+          <a href={projectPath(lead)}>{lead.data.title}</a>
+        </p>
       </div>
-      <div class="collection-grid">
-        {featuredPhotography.map((collection) => (
-          <CollectionCard collection={collection} />
+    </section>
+  )}
+
+  {rest.length > 0 && (
+    <section class="section">
+      <div class="wrap work-list">
+        {rest.map((work) => (
+          <a class="work-row" href={projectPath(work)}>
+            <h2>{work.data.title}</h2>
+            <p>{work.data.pitch ?? work.data.summary}</p>
+          </a>
         ))}
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <hr class="rule wrap" />
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
+  {study && (
+    <section class="section">
+      <div class="wrap study-grid">
+        {hasPhotograph(study.data.hero) && (
+          <img
+            src={study.data.hero}
+            alt={study.data.heroAlt}
+            width="1400"
+            height="788"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
         <div>
-          <p class="section-kicker">{copy.projectsKicker}</p>
-          <h2 class="section-title">{copy.projectsTitle}</h2>
+          <p class="section-kicker">Case study</p>
+          <h2 class="section-title">{study.data.title}</h2>
+          <p>{study.data.pitch ?? study.data.summary}</p>
+          <div class="hero-actions">
+            <a class="button" href={projectPath(study)}>Georgette 150th</a>
+          </div>
         </div>
-        <a href="/projects">{copy.projectsLink}</a>
       </div>
-      <div class="project-grid">
-        {featured.map((project) => <ProjectCard project={project} />)}
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule wrap" />
-
-  <section class="section">
-    <div class="wrap">
-      <p class="section-kicker">{copy.workKicker}</p>
-      <h2 class="section-title">{copy.workTitle}</h2>
-      <div class="capability-grid" style="margin-top: 2rem;">
-        {copy.capabilities?.map((item) => (
-          <article class="capability">
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </article>
-        ))}
-      </div>
-      <p style="margin-top: 2rem;">
-        <a href="/services">{copy.workLink}</a>
-      </p>
-    </div>
-  </section>
-
-  <hr class="rule wrap" />
-
-  <section class="section">
-    <div class="wrap split-grid">
-      <div>
-        <p class="section-kicker">{copy.aboutKicker}</p>
-        <h2 class="section-title">{copy.aboutTitle}</h2>
-      </div>
-      <div>
-        {copy.aboutParagraphs?.map((paragraph) => <p>{paragraph}</p>)}
-        <p><a href="/about">{copy.aboutLink}</a></p>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <section class="section cta">
     <div class="wrap">
       <h2 class="section-title">{copy.ctaTitle}</h2>
       <p>{copy.ctaText}</p>
       <div class="hero-actions" style="margin-top: 1.5rem;">
-        <a class="button" href="/contact">Get in touch</a>
-        <a class="button button-ghost" href="/projects">Look at the work</a>
+        <a class="button" href="/contact">Enquire</a>
       </div>
     </div>
   </section>

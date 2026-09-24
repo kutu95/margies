@@ -1,0 +1,102 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getWorks, hasPhotograph, projectPath, type Project } from "../../lib/projects";
+import { breadcrumbJsonLd, creativeWorkJsonLd } from "../../lib/seo";
+
+export async function getStaticPaths() {
+  const works = await getWorks();
+  return works.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const path = projectPath(project);
+const title = project.data.seoTitle ?? `${project.data.title} — Margies`;
+const description = project.data.seoDescription ?? project.data.summary;
+const showHero = hasPhotograph(project.data.hero);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  image={showHero ? project.data.hero : undefined}
+  imageAlt={showHero ? project.data.heroAlt : undefined}
+  type="article"
+  jsonLd={[
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Work", path: "/work" },
+      { name: project.data.title, path },
+    ]),
+    creativeWorkJsonLd({
+      name: project.data.title,
+      description,
+      path,
+      image: showHero ? project.data.hero : undefined,
+      url: project.data.url,
+    }),
+  ]}
+>
+  <article>
+    <header class="page-hero">
+      <div class="wrap">
+        <p class="section-kicker">
+          <a href="/work">Work</a>
+        </p>
+        <h1 class="page-title">{project.data.title}</h1>
+        {project.data.pitch && <p class="lede">{project.data.pitch}</p>}
+        {project.data.year && <p class="meta-row">{project.data.year}</p>}
+      </div>
+    </header>
+
+    {showHero && (
+      <figure class="photo-hero-figure wrap">
+        <img
+          src={project.data.hero}
+          alt={project.data.heroAlt}
+          width="1800"
+          height="1200"
+          fetchpriority="high"
+        />
+      </figure>
+    )}
+
+    <div class="section">
+      <div class="wrap">
+        <div class="prose">
+          <Content />
+        </div>
+
+        {project.data.technologies.length > 0 && (
+          <div style="margin-top: 2.5rem;">
+            <h2 class="section-title section-title-small">Tools</h2>
+            <ul class="tech-list">
+              {project.data.technologies.map((tech) => <li>{tech}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <section class="section-tight">
+      <div class="wrap inline-links">
+        <p>
+          <a href="/work">← Work</a>
+          {" · "}
+          <a href="/georgette">Georgette 150th</a>
+          {" · "}
+          <a href="/contact">Enquire</a>
+        </p>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

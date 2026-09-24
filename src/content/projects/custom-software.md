@@ -1,6 +1,6 @@
 ---
 title: "Custom Software & Prototypes"
-summary: "Smaller systems built for a specific job: greenhouse monitors, cashbook tools, drone planning, photographic utilities and other niche workflows."
+summary: "Smaller tools: greenhouse monitors, cashbook, drone planning, photographic utilities."
 category: Software / prototypes
 disciplines:
   - Software
@@ -16,36 +16,34 @@ status: ongoing
 hero: /images/projects/custom-software/hero.svg
 heroAlt: Abstract schematic placeholder for a collection of small custom systems
 gallery: []
-featured: true
+featured: false
 order: 6
-seoTitle: "Custom software and prototypes — John Bowskill"
-seoDescription: "A collection of smaller custom systems: greenhouse monitoring, cashbook tools, drone mission planning, photographic utilities and niche workflow applications."
+seoTitle: "Custom software — John Bowskill"
+seoDescription: "Smaller custom systems: greenhouse monitoring, cashbook tools, drone planning and photographic utilities."
 ---
 
-Not every useful system deserves its own flag. This page is a holding area for smaller custom tools — the ones built because a job was sitting there, slightly wrong, and it was faster to write something than to keep living with it.
-
-Some of these will later be split into their own project pages. Until then, they belong together as evidence of a habit.
+Smaller tools built for a specific job. Some of these may get their own pages later.
 
 ## Greenhouse monitoring
 
-Related to the [aquafarm work](/projects/aquafarm-technology), but not only that greenhouse. Small monitoring applications for temperature, humidity and the sort of values you want on a phone at 11pm without walking down the paddock.
+Related to the [aquafarm work](/projects/aquafarm-technology). Temperature, humidity and similar readings on a phone.
 
-## Cashbook and accounting tools
+## Cashbook
 
-Farm and small-business bookkeeping is a graveyard of almost-right software. I have built cashbook tools that match the way a particular set of books is actually kept — categories, GST realities, and the reports you need for a year that has already happened.
+Bookkeeping tools matched to how a particular set of books is kept.
 
-## Drone mission planning
+## Drone planning
 
-Photography and survey work with a drone is easier when the flight is planned rather than improvised. I have written tools to think through missions before the batteries come out of the bag, especially around coastal sites where the useful window is short.
+Simple mission planning before a coastal or survey flight.
 
 ## Photographic tools
 
-Lightroom does a lot. It does not do everything. Utilities for sorting, comparing, preparing exhibition files, and handling odd formats have accumulated around the Georgette work and earlier photography. Cuborama Studio and Layer Painter, mentioned on the [exhibition page](/projects/ss-georgette-150th), started as answers to specific production problems.
+Sorting, comparing and preparing exhibition files. Cuborama Studio and Layer Painter started here. The rooms they run are [Cuborama](/work/cuborama) and [Layer Painter](/work/layer-painter).
 
-## Dashboards and niche workflows
+## Other
 
-The leftover pile: internal dashboards, one-off importers, small web applications that exist so a process does not live in a spreadsheet with a name like `final_v7`. I do not list every one. The pattern is the same. Look at the job. Build the smallest system that makes the job less stupid.
+Dashboards, importers, and small apps that replace a messy spreadsheet.
 
-If you have a problem in this territory — too small for a vendor, too specific for a plugin — that is usually the right time to [write](/contact).
+[Contact](/contact) if you have a job in this range.
 
 <!-- TODO: Break individual tools into their own project pages as screenshots and short write-ups become available. -->

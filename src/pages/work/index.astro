@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getWorks, hasPhotograph, projectPath } from "../../lib/projects";
+import { breadcrumbJsonLd } from "../../lib/seo";
+
+const works = await getWorks();
+const [lead, ...rest] = works;
+const title = "Work — Margies";
+const description = "Captain Godfrey, Cuborama, Drift and Layer Painter. Interactive installations for museums, galleries and cultural spaces.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/work"
+  jsonLd={breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Work", path: "/work" },
+  ])}
+>
+  <header class="page-hero">
+    <div class="wrap">
+      <p class="section-kicker">Work</p>
+      <h1 class="page-title">Four works.</h1>
+      <p class="lede">Captain Godfrey is the one I would start with. Cuborama, Drift and Layer Painter each stand on their own.</p>
+    </div>
+  </header>
+
+  {lead && (
+    <section class="lead-work">
+      <div class="wrap">
+        <h2 class="lead-title">{lead.data.title}</h2>
+        {lead.data.pitch && <p class="lead-pitch">{lead.data.pitch}</p>}
+        <p class="lead-summary">{lead.data.summary}</p>
+        <p class="lead-link">
+          <a href={projectPath(lead)}>{lead.data.title}</a>
+        </p>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="wrap work-features">
+      {rest.map((work) => (
+        <article class="work-feature">
+          {hasPhotograph(work.data.hero) && (
+            <a href={projectPath(work)}>
+              <img
+                src={work.data.hero}
+                alt={work.data.heroAlt}
+                width="1800"
+                height="1200"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          )}
+          <div>
+            <h2 class="section-title">{work.data.title}</h2>
+            {work.data.pitch && <p class="work-feature-pitch">{work.data.pitch}</p>}
+            <p>{work.data.summary}</p>
+            <p><a href={projectPath(work)}>{work.data.title}</a></p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -2,11 +2,11 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import { getPage } from "../../lib/pages";
-import { getProjects } from "../../lib/projects";
+import { getArchiveProjects } from "../../lib/projects";
 import { breadcrumbJsonLd } from "../../lib/seo";
 
 const page = await getPage("projects");
-const projects = await getProjects();
+const projects = await getArchiveProjects();
 const title = page.data.seoTitle ?? "Projects — John Bowskill";
 const description = page.data.seoDescription ?? "";
 ---

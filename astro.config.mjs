@@ -6,6 +6,10 @@ export default defineConfig({
   site: "https://margies.app",
   trailingSlash: "never",
   compressHTML: true,
+  redirects: {
+    "/projects/digital-humans": "/work/captain-godfrey",
+    "/enquire": "/contact",
+  },
   publicDir: publicDir(),
   fonts: [
     {

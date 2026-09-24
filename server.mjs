@@ -26,6 +26,24 @@ const TYPES = {
   ".xml": "application/xml; charset=utf-8",
 };
 
+const REDIRECTS = new Map([
+  ["/projects/digital-humans", "/work/captain-godfrey"],
+  ["/projects/captain-godfrey", "/work/captain-godfrey"],
+  ["/projects/cuborama", "/work/cuborama"],
+  ["/projects/drift", "/work/drift"],
+  ["/projects/layer-painter", "/work/layer-painter"],
+  ["/projects/ss-georgette-150th", "/georgette"],
+  ["/enquire", "/contact"],
+]);
+
+function redirectTarget(url) {
+  const path = url.split("?")[0].replace(/\/$/, "") || "/";
+  const target = REDIRECTS.get(path);
+  if (!target) return null;
+  const query = url.includes("?") ? url.slice(url.indexOf("?")) : "";
+  return `${target}${query}`;
+}
+
 function baseHeaders(extra = {}) {
   return {
     "X-Content-Type-Options": "nosniff",
@@ -70,6 +88,13 @@ const server = http.createServer(async (req, res) => {
 
   if (host === "www.margies.app") {
     res.writeHead(301, baseHeaders({ Location: `https://margies.app${url}` }));
+    res.end();
+    return;
+  }
+
+  const redirectTo = redirectTarget(url);
+  if (redirectTo && (req.method === "GET" || req.method === "HEAD")) {
+    res.writeHead(301, baseHeaders({ Location: redirectTo }));
     res.end();
     return;
   }

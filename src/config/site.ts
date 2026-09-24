@@ -14,8 +14,8 @@ const settings = JSON.parse(fs.readFileSync(settingsPath(), "utf8")) as {
 };
 
 export const site = {
-  name: "John Bowskill",
-  shortName: "margies.app",
+  name: "Margies",
+  shortName: "Margies",
   title: settings.title,
   description: settings.description,
   url: "https://margies.app",
@@ -26,7 +26,7 @@ export const site = {
   region: "Margaret River region, Western Australia",
   jobTitle: settings.jobTitle,
   tagline: settings.tagline,
-  ogImage: "/images/og-default.jpg",
+  ogImage: "/images/photography/georgette/installation.jpg",
   /**
    * Optional HTML-tag verification for Google Search Console.
    * Prefer verifying the Domain property with a Cloudflare DNS TXT record.
@@ -41,11 +41,11 @@ export const site = {
 
 export const nav = [
   { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/photography", label: "Photography" },
-  { href: "/services", label: "Services" },
+  { href: "/work", label: "Work" },
+  { href: "/georgette", label: "Georgette 150th" },
+  { href: "/prints", label: "Prints" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", label: "Enquire" },
 ] as const;
 
 export const disciplines = [

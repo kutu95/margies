@@ -222,24 +222,6 @@ export function pageForm({ entry, csrf }) {
       ${field("Hero alt text", "heroAlt", data.heroAlt ?? "")}
       ${field("Headline", "headline", data.headline ?? "")}
       ${area("Lede", "lede", data.lede ?? "", 3)}
-      <div class="two grid">
-        ${field("Photography kicker", "photoKicker", data.photoKicker ?? "")}
-        ${field("Photography title", "photoTitle", data.photoTitle ?? "")}
-        ${field("Photography link", "photoLink", data.photoLink ?? "")}
-        ${field("Projects kicker", "projectsKicker", data.projectsKicker ?? "")}
-        ${field("Projects title", "projectsTitle", data.projectsTitle ?? "")}
-        ${field("Projects link", "projectsLink", data.projectsLink ?? "")}
-        ${field("Work kicker", "workKicker", data.workKicker ?? "")}
-        ${field("Work title", "workTitle", data.workTitle ?? "")}
-        ${field("Work link", "workLink", data.workLink ?? "")}
-      </div>
-      ${pairEditor("caps", "cap", "What the work looks like", data.capabilities)}
-      ${field("About kicker", "aboutKicker", data.aboutKicker ?? "")}
-      ${field("About title", "aboutTitle", data.aboutTitle ?? "")}
-      ${area("About paragraphs (one per box, add lines below)", "aboutParagraphs[]", (data.aboutParagraphs ?? [])[0] ?? "", 3)}
-      ${(data.aboutParagraphs ?? []).slice(1).map((paragraph) => area("About paragraph", "aboutParagraphs[]", paragraph, 3)).join("")}
-      ${area("About paragraph", "aboutParagraphs[]", "", 3)}
-      ${field("About link", "aboutLink", data.aboutLink ?? "")}
       ${field("Closing title", "ctaTitle", data.ctaTitle ?? "")}
       ${area("Closing text", "ctaText", data.ctaText ?? "", 2)}
     `);
@@ -298,11 +280,20 @@ export function projectForm({ entry, csrf, isNew }) {
       ${field("Live URL", "url", data.url ?? "")}
       ${field("Live URL label", "urlLabel", data.urlLabel ?? "")}
       ${field("Related photography slug", "relatedPhotography", data.relatedPhotography ?? "")}
+      ${field("Pitch", "pitch", data.pitch ?? "")}
+      <label class="field"><span>Placement</span>
+        <select name="placement">
+          ${["work", "study", "archive"].map((placement) =>
+            `<option value="${placement}" ${(data.placement ?? "archive") === placement ? "selected" : ""}>${placement}</option>`,
+          ).join("")}
+        </select>
+      </label>
       ${field("Hero image", "hero", data.hero ?? "")}
       ${field("Hero alt text", "heroAlt", data.heroAlt ?? "")}
       ${field("Year", "year", data.year ?? "")}
       ${field("Order", "order", data.order ?? 0, `type="number"`)}
       ${check("Featured on the home page", "featured", Boolean(data.featured))}
+      ${area("Figures (Label: value, one per line)", "figures", (data.figures ?? []).map((figure) => `${figure.label}: ${figure.value}`).join("\n"), 4)}
       ${field("SEO title", "seoTitle", data.seoTitle ?? "")}
       ${area("SEO description", "seoDescription", data.seoDescription ?? "", 3)}
       ${area("Meta (Key: value, one per line)", "meta", meta, 4)}

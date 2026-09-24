@@ -3,7 +3,7 @@ import { absoluteUrl } from "../config/site";
 import { getPhotographyCollections, photographyPath } from "../lib/photography";
 import { getProjects, projectPath } from "../lib/projects";
 
-const staticPaths = ["/", "/about", "/contact", "/services", "/projects", "/photography"];
+const staticPaths = ["/", "/about", "/contact", "/services", "/projects", "/photography", "/work", "/prints"];
 
 export const GET: APIRoute = async () => {
   const [projects, photography] = await Promise.all([

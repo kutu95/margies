@@ -126,16 +126,33 @@ export function projectFromForm(fields) {
     url: optional(fields.url),
     urlLabel: optional(fields.urlLabel),
     relatedPhotography: optional(fields.relatedPhotography),
-    hero: fields.hero?.trim(),
-    heroAlt: fields.heroAlt?.trim(),
+    hero: fields.hero?.trim() ?? "",
+    heroAlt: fields.heroAlt?.trim() ?? "",
     gallery,
     year: optional(fields.year),
     featured: fields.featured === "on",
     order: Number(fields.order || 0),
+    placement: ["work", "study", "archive"].includes(fields.placement) ? fields.placement : "archive",
+    pitch: optional(fields.pitch),
+    figures: labeledValues(fields.figures),
     seoTitle: optional(fields.seoTitle),
     seoDescription: optional(fields.seoDescription),
     meta: Object.keys(meta).length ? meta : undefined,
   };
+}
+
+function labeledValues(value) {
+  return String(value ?? "")
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .flatMap((line) => {
+      const splitAt = line.indexOf(":");
+      if (splitAt === -1) return [];
+      const label = line.slice(0, splitAt).trim();
+      const itemValue = line.slice(splitAt + 1).trim();
+      return label && itemValue ? [{ label, value: itemValue }] : [];
+    });
 }
 
 export function photographyFromForm(fields) {
@@ -203,11 +220,7 @@ export function pageFromForm(slug, fields, existing) {
     if (fields[key] !== undefined) data[key] = fields[key];
   }
 
-  if (slug === "home") {
-    data.capabilities = numbered(fields, "cap").map((row) => ({
-      title: row.title?.trim() ?? "",
-      text: row.text?.trim() ?? "",
-    })).filter((row) => row.title || row.text);
+  if (slug === "home" && fields.aboutParagraphs !== undefined) {
     data.aboutParagraphs = [].concat(fields.aboutParagraphs ?? [])
       .map((item) => String(item).trim())
       .filter(Boolean);

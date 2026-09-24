@@ -1,7 +1,7 @@
 ---
-seoTitle: Contact John Bowskill
-seoDescription: Contact John Bowskill in the Margaret River region of Western Australia about photography, creative technology or an unusual project.
-kicker: Contact
-headline: Tell me the problem.
-lede: Unusual technical or creative work is welcome. Ordinary requests for a generic brochure site are less interesting, though I’ll still say if I can help.
+seoTitle: Enquire — Margies
+seoDescription: Tell Margies about the person, place or story you want visitors to experience.
+kicker: Enquire
+headline: Tell me the person, place or story.
+lede: The one you want your visitors to walk into. If it can be stood inside, I will say so.
 ---

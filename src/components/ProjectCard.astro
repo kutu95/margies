@@ -1,5 +1,5 @@
 ---
-import { projectPath, statusLabel, type Project } from "../lib/projects";
+import { hasPhotograph, projectPath, statusLabel, type Project } from "../lib/projects";
 
 interface Props {
   project: Project;
@@ -16,14 +16,16 @@ const meta = [project.data.category, statusLabel(project.data.status), project.d
 
 <article>
   <a class="project-card" href={href}>
-    <img
-      src={project.data.hero}
-      alt={project.data.heroAlt}
-      width="960"
-      height="600"
-      loading="lazy"
-      decoding="async"
-    />
+    {hasPhotograph(project.data.hero) && (
+      <img
+        src={project.data.hero}
+        alt={project.data.heroAlt}
+        width="960"
+        height="600"
+        loading="lazy"
+        decoding="async"
+      />
+    )}
     <p class="project-card-meta">{meta}</p>
     <Heading class="card-title">{project.data.title}</Heading>
     <p>{project.data.summary}</p>

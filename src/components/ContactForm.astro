@@ -44,11 +44,11 @@ const mailto = `mailto:${site.email}`;
   </label>
 
   <label>
-    What are you trying to do?
+    The person, place or story
     <input
       type="text"
       name="subject"
-      placeholder="I wish there was something that could just…"
+      placeholder="A person our visitors could talk to"
     />
   </label>
 
@@ -86,7 +86,7 @@ const mailto = `mailto:${site.email}`;
 
       const name = String(data.get("name") ?? "").trim();
       const from = String(data.get("email") ?? "").trim();
-      const subject = String(data.get("subject") ?? "Project enquiry").trim();
+      const subject = String(data.get("subject") ?? "Enquiry").trim();
       const message = String(data.get("message") ?? "").trim();
 
       if (!endpoint) {

@@ -2,7 +2,7 @@
 import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PhotoGallery from "../../components/PhotoGallery.astro";
-import { getProjects, projectPath, statusLabel, type Project } from "../../lib/projects";
+import { getProjects, hasPhotograph, projectPath, statusLabel, type Project } from "../../lib/projects";
 import { breadcrumbJsonLd, creativeWorkJsonLd } from "../../lib/seo";
 
 export async function getStaticPaths() {
@@ -18,8 +18,11 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { Content } = await render(project);
 const path = projectPath(project);
+if (path !== `/projects/${project.id}`) {
+  return Astro.redirect(path, 301);
+}
+const { Content } = await render(project);
 const title = project.data.seoTitle ?? `${project.data.title} — John Bowskill`;
 const description = project.data.seoDescription ?? project.data.summary;
 const meta = [project.data.category, statusLabel(project.data.status), project.data.year]
@@ -74,15 +77,17 @@ const meta = [project.data.category, statusLabel(project.data.status), project.d
       </div>
     </header>
 
-    <figure class="photo-hero-figure wrap">
-      <img
-        src={project.data.hero}
-        alt={project.data.heroAlt}
-        width="1400"
-        height="875"
-        fetchpriority="high"
-      />
-    </figure>
+    {hasPhotograph(project.data.hero) && (
+      <figure class="photo-hero-figure wrap">
+        <img
+          src={project.data.hero}
+          alt={project.data.heroAlt}
+          width="1400"
+          height="875"
+          fetchpriority="high"
+        />
+      </figure>
+    )}
 
     <div class="section">
       <div class="wrap">
@@ -135,7 +140,7 @@ const meta = [project.data.category, statusLabel(project.data.status), project.d
         <p>
           <a href="/projects">← All projects</a>
           {" · "}
-          <a href="/contact">Talk about a similar problem</a>
+          <a href="/contact">Enquire</a>
         </p>
       </div>
     </section>
