@@ -7,10 +7,12 @@ import { breadcrumbJsonLd, creativeWorkJsonLd } from "../../lib/seo";
 
 export async function getStaticPaths() {
   const projects = await getProjects();
-  return projects.map((project) => ({
-    params: { slug: project.id },
-    props: { project },
-  }));
+  return projects
+    .filter((project) => project.data.placement === "work" || project.data.placement === "study")
+    .map((project) => ({
+      params: { slug: project.id },
+      props: { project },
+    }));
 }
 
 interface Props {

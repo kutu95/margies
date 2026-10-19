@@ -8,7 +8,7 @@ import { nav, site } from "../config/site";
       <p>
         <strong>{site.name}</strong><br />
         {site.tagline}<br />
-        {site.author}, {site.region}
+        {site.region}
       </p>
       <p>
         <a href={`mailto:${site.email}`}>{site.email}</a>
@@ -16,9 +16,8 @@ import { nav, site } from "../config/site";
     </div>
     <nav class="footer-nav" aria-label="Footer">
       {nav.map((item) => (
-        <a href={item.href}>{item.label}</a>
+        <a href={item.href} rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}>{item.label}</a>
       ))}
-      <a href="/projects">Other work</a>
     </nav>
     <p>© {new Date().getFullYear()} {site.name}</p>
   </div>

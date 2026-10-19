@@ -19,7 +19,7 @@ interface Props {
 const { project } = Astro.props;
 const { Content } = await render(project);
 const path = projectPath(project);
-const title = project.data.seoTitle ?? `${project.data.title} — Margies`;
+const title = project.data.seoTitle ?? `${project.data.title} — John Bowskill`;
 const description = project.data.seoDescription ?? project.data.summary;
 const showHero = hasPhotograph(project.data.hero);
 ---

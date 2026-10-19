@@ -4,6 +4,7 @@ import { nav, site } from "../config/site";
 const current = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 function isCurrent(href: string): boolean {
+  if (href.startsWith("http")) return false;
   if (href === "/") return current === "/";
   return current === href || current.startsWith(`${href}/`);
 }
@@ -16,7 +17,11 @@ function isCurrent(href: string): boolean {
     </a>
     <nav class="nav" aria-label="Primary">
       {nav.map((item) => (
-        <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+        <a
+          href={item.href}
+          aria-current={isCurrent(item.href) ? "page" : undefined}
+          rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+        >
           {item.label}
         </a>
       ))}

@@ -17,10 +17,9 @@ export function personJsonLd() {
       addressCountry: "AU",
     },
     knowsAbout: [
-      "Interactive installations",
-      "Digital characters",
-      "Immersive exhibitions",
-      "Photography",
+      "Interactive exhibition pieces",
+      "Historic metahumans",
+      "Art technology",
     ],
     sameAs: [...site.sameAs],
   };

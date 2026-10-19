@@ -37,7 +37,7 @@ year: "2026"
 featured: false
 order: 5
 placement: study
-seoTitle: Georgette 150th — Margies
+seoTitle: Georgette 150th — John Bowskill
 seoDescription: The Georgette 150th exhibition in Margaret River installed Captain Godfrey, Cuborama, Drift and Layer Painter together, and opened them to the public.
 meta:
   Location: Margaret River region, Western Australia
@@ -49,7 +49,7 @@ The SS Georgette wreck is off Redgate Beach, near where I live. I photographed i
 
 Four works were installed together, and people used them:
 
-- [Captain Godfrey](/work/captain-godfrey) — a historical person you can speak with
+- [Captain Godfrey](/godfrey) — a historic metahuman you can speak with
 - [Cuborama](/work/cuborama) — a room of projected image
 - [Drift](/work/drift) — a picture that responds to movement
 - [Layer Painter](/work/layer-painter) — one artwork made by the visitors
@@ -60,7 +60,7 @@ They are not proposals. They ran in the same exhibition.
 
 Land, drone and underwater photographs from Calgardup Bay, Redgate Beach and Isaac Rock. The same pictures had to work as prints and as projection.
 
-[SS Georgette photographs](/photography/ss-georgette) · [Prints](/prints)
+[Prints](https://exhibition.margies.app/shop) from these pictures are for sale.
 
 ## Historical research
 

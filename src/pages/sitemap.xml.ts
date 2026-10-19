@@ -1,20 +1,16 @@
 import type { APIRoute } from "astro";
 import { absoluteUrl } from "../config/site";
-import { getPhotographyCollections, photographyPath } from "../lib/photography";
 import { getProjects, projectPath } from "../lib/projects";
 
-const staticPaths = ["/", "/about", "/contact", "/services", "/projects", "/photography", "/work", "/prints"];
+const staticPaths = ["/", "/godfrey", "/about", "/contact", "/work", "/georgette"];
 
 export const GET: APIRoute = async () => {
-  const [projects, photography] = await Promise.all([
-    getProjects(),
-    getPhotographyCollections(),
-  ]);
-
+  const projects = await getProjects();
   const paths = [
     ...staticPaths,
-    ...projects.map(projectPath),
-    ...photography.map(photographyPath),
+    ...projects
+      .filter((project) => project.data.placement === "work")
+      .map(projectPath),
   ];
 
   const body = [

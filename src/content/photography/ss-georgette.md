@@ -37,4 +37,4 @@ gallery:
 
 Pictures from Redgate and the water above the wreck. Some were later used in the exhibition.
 
-[Georgette 150th](/georgette). [Prints](/prints). [Explore the exhibition](https://exhibition.margies.app/).
+[Georgette 150th](/georgette). [Prints](https://exhibition.margies.app/shop). [Explore the exhibition](https://exhibition.margies.app/).

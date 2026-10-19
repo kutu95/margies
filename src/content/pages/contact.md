@@ -1,7 +1,7 @@
 ---
-seoTitle: Enquire — Margies
-seoDescription: Tell Margies about the person, place or story you want visitors to experience.
+seoTitle: Enquire — John Bowskill
+seoDescription: Enquire about an interactive piece for a gallery, museum or exhibition, or about a print.
 kicker: Enquire
-headline: Tell me the person, place or story.
-lede: The one you want your visitors to walk into. If it can be stood inside, I will say so.
+headline: Tell me the person, the exhibition, or the print.
+lede: For a gallery, a museum or an exhibition. If it can be stood inside, I will say so.
 ---

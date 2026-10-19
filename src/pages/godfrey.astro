@@ -1,0 +1,123 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PhotoGallery from "../components/PhotoGallery.astro";
+import { getPage } from "../lib/pages";
+import { breadcrumbJsonLd, creativeWorkJsonLd } from "../lib/seo";
+
+const page = await getPage("godfrey");
+const { Content } = await render(page);
+const title = page.data.seoTitle ?? "Captain Godfrey — John Bowskill";
+const description = page.data.seoDescription ?? page.data.lede ?? "";
+const path = "/godfrey";
+const hero = page.data.heroImage;
+const shareImage = hero || page.data.videoPoster;
+const shareAlt = hero ? page.data.heroAlt : page.data.videoCaption;
+const subject = page.data.enquireSubject ?? "A person our visitors could talk to";
+const contactHref = `/contact?subject=${encodeURIComponent(subject)}`;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  image={shareImage}
+  imageAlt={shareAlt}
+  type="article"
+  jsonLd={[
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Captain Godfrey", path },
+    ]),
+    creativeWorkJsonLd({
+      name: page.data.headline ?? "Captain Godfrey",
+      description,
+      path,
+      image: hero,
+    }),
+  ]}
+>
+  <article>
+    <header class="page-hero">
+      <div class="wrap">
+        {page.data.kicker && <p class="section-kicker">{page.data.kicker}</p>}
+        <h1 class="page-title">{page.data.headline}</h1>
+        {page.data.lede && <p class="lede">{page.data.lede}</p>}
+      </div>
+    </header>
+
+    {hero && (
+      <figure class="photo-hero-figure wrap">
+        <img
+          src={hero}
+          alt={page.data.heroAlt ?? ""}
+          width="1800"
+          height="1200"
+          fetchpriority="high"
+        />
+      </figure>
+    )}
+
+    {page.data.video && (
+      <figure class="photo-hero-figure wrap offer-video">
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster={page.data.videoPoster}
+          width="1920"
+          height="1080"
+        >
+          <source src={page.data.video} type="video/mp4" />
+        </video>
+        {page.data.videoCaption && <figcaption class="figure-note">{page.data.videoCaption}</figcaption>}
+      </figure>
+    )}
+
+    <section class="section">
+      <div class="wrap">
+        {page.data.figures.length > 0 && (
+          <dl class="figure-list figure-list-lead">
+            {page.data.figures.map((figure) => (
+              <div>
+                <dd>{figure.value}</dd>
+                <dt>{figure.label}</dt>
+              </div>
+            ))}
+          </dl>
+        )}
+        {page.data.figureNote && <p class="figure-note">{page.data.figureNote}</p>}
+
+        <div class="prose offer-copy">
+          <Content />
+        </div>
+
+        {page.data.ctaTitle && (
+          <div class="hero-actions offer-actions">
+            <a class="button" href={contactHref}>{page.data.ctaTitle}</a>
+          </div>
+        )}
+      </div>
+    </section>
+
+    {page.data.gallery.length > 0 && (
+      <section class="section-tight">
+        <div class="wrap">
+          <PhotoGallery images={page.data.gallery} />
+        </div>
+      </section>
+    )}
+
+    <section class="section-tight">
+      <div class="wrap inline-links">
+        <p>
+          <a href="/work/captain-godfrey">At the exhibition</a>
+          {" · "}
+          <a href="/georgette">Georgette 150th</a>
+          {" · "}
+          <a href="/contact">Enquire</a>
+        </p>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

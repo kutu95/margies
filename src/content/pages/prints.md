@@ -1,11 +1,9 @@
 ---
-seoTitle: Prints — Margies
-seoDescription: Photographic prints from the Georgette 150th exhibition, and other photographs by John Bowskill.
+seoTitle: Prints — John Bowskill
+seoDescription: Photographic prints from the Georgette 150th exhibition, for sale.
 kicker: Prints
 headline: Prints
-lede: Photographs from the Georgette exhibition are available as prints. Tell me which picture you want.
+lede: Photographs from the Georgette 150th are for sale. Tell me which picture you want.
 ---
 
-The Georgette pictures are the ones from the exhibition. The [exhibition site](https://exhibition.margies.app/) is still up. To buy a print, [enquire](/contact) and name the picture.
-
-Other photographs are below.
+These are the pictures from the exhibition. To buy a print, enquire and name the picture.

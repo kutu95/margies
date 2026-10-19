@@ -99,6 +99,15 @@ const pages = defineCollection({
     aboutLink: z.string().optional(),
     ctaTitle: z.string().optional(),
     ctaText: z.string().optional(),
+    enquireSubject: z.string().optional(),
+    figureNote: z.string().optional(),
+    figures: z
+      .array(z.object({ label: z.string(), value: z.string() }))
+      .default([]),
+    gallery: z.array(photoImage).default([]),
+    video: z.string().optional(),
+    videoPoster: z.string().optional(),
+    videoCaption: z.string().optional(),
     kindsTitle: z.string().optional(),
     kinds: z.array(titledText).optional(),
   }),

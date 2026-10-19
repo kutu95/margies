@@ -16,7 +16,7 @@ year: "2026"
 featured: true
 order: 2
 placement: work
-seoTitle: Cuborama — Margies
+seoTitle: Cuborama — John Bowskill
 seoDescription: Cuborama is a cubic panorama. Four projected walls surround visitors with a moving image.
 ---
 

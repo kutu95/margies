@@ -10,7 +10,7 @@ if (!project) {
   throw new Error("Missing Georgette case study");
 }
 const { Content } = await render(project);
-const title = project.data.seoTitle ?? `${project.data.title} — Margies`;
+const title = project.data.seoTitle ?? `${project.data.title} — John Bowskill`;
 const description = project.data.seoDescription ?? project.data.summary;
 const path = "/georgette";
 const showHero = hasPhotograph(project.data.hero);
@@ -40,18 +40,10 @@ const showHero = hasPhotograph(project.data.hero);
   <article>
     <header class="page-hero">
       <div class="wrap">
-        <p class="section-kicker">Case study</p>
+        <p class="section-kicker">Exhibition</p>
         <h1 class="page-title">{project.data.title}</h1>
         {project.data.pitch && <p class="lede">{project.data.pitch}</p>}
         <p class="meta-row">Margaret River · {project.data.year}</p>
-        {project.data.url && (
-          <div class="hero-actions">
-            <a class="button" href={project.data.url} rel="noopener noreferrer">
-              {project.data.urlLabel ?? "Visit the exhibition"}
-              <span class="ext-mark" aria-hidden="true">↗</span>
-            </a>
-          </div>
-        )}
       </div>
     </header>
 
@@ -100,8 +92,12 @@ const showHero = hasPhotograph(project.data.hero);
         <p>
           <a href="/work">The four works</a>
           {" · "}
-          <a href="/prints">Prints</a>
+          <a href="https://exhibition.margies.app/shop" rel="noopener noreferrer">Prints</a>
           {" · "}
+          {project.data.url && (
+            <a href={project.data.url} rel="noopener noreferrer">Exhibition site</a>
+          )}
+          {project.data.url && " · "}
           <a href="/contact">Enquire</a>
         </p>
       </div>

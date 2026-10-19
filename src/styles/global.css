@@ -787,12 +787,23 @@ a:hover {
   margin: 0;
 }
 
-.opening-media img {
+.opening-media img,
+.opening-media video {
   width: 100%;
+  background: var(--ink);
+}
+
+.opening-media img {
   height: min(88vh, 52rem);
   object-fit: cover;
   object-position: center 40%;
-  background: var(--ink);
+}
+
+.opening-media video {
+  display: block;
+  height: auto;
+  max-height: min(88vh, 52rem);
+  object-fit: contain;
 }
 
 .opening-copy {
@@ -958,4 +969,33 @@ a:hover {
 .figure-list dt {
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+.figure-list-lead {
+  margin-top: 0;
+}
+
+.figure-note {
+  max-width: 36rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.offer-copy {
+  margin-top: var(--space-5);
+}
+
+.offer-actions {
+  margin-top: var(--space-4);
+}
+
+.offer-video video {
+  width: 100%;
+  background: var(--ink);
+}
+
+.lead-work .figure-list dt,
+.lead-work .figure-note {
+  color: color-mix(in srgb, var(--paper) 68%, transparent);
 }

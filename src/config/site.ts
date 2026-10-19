@@ -14,8 +14,8 @@ const settings = JSON.parse(fs.readFileSync(settingsPath(), "utf8")) as {
 };
 
 export const site = {
-  name: "Margies",
-  shortName: "Margies",
+  name: "John Bowskill",
+  shortName: "John Bowskill",
   title: settings.title,
   description: settings.description,
   url: "https://margies.app",
@@ -39,11 +39,14 @@ export const site = {
   ],
 } as const;
 
+export const printsHref = "https://exhibition.margies.app/shop";
+
 export const nav = [
   { href: "/", label: "Home" },
+  { href: "/godfrey", label: "Captain Godfrey" },
   { href: "/work", label: "Work" },
   { href: "/georgette", label: "Georgette 150th" },
-  { href: "/prints", label: "Prints" },
+  { href: printsHref, label: "Prints" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Enquire" },
 ] as const;

@@ -16,7 +16,7 @@ year: "2026"
 featured: true
 order: 3
 placement: work
-seoTitle: Drift — Margies
+seoTitle: Drift — John Bowskill
 seoDescription: Drift is an installation that responds to where a visitor is and how they move.
 ---
 

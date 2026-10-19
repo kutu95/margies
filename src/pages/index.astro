@@ -1,14 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { site } from "../config/site";
+import { printsHref, site } from "../config/site";
 import { getPage } from "../lib/pages";
 import { getStudy, getWorks, hasPhotograph, projectPath } from "../lib/projects";
 import { organizationJsonLd, personJsonLd, websiteJsonLd } from "../lib/seo";
 
 const page = await getPage("home");
+const offer = await getPage("godfrey");
 const copy = page.data;
 const works = await getWorks();
 const [lead, ...rest] = works;
+const leadIsGodfrey = lead?.id === "captain-godfrey";
 const study = await getStudy();
 ---
 
@@ -22,37 +24,69 @@ const study = await getStudy();
 >
   <section class="opening">
     <figure class="opening-media">
-      <img
-        src={copy.heroImage}
-        alt={copy.heroAlt ?? ""}
-        width="1800"
-        height="1200"
-        fetchpriority="high"
-      />
+      {copy.video ? (
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster={copy.videoPoster}
+          width="1920"
+          height="1080"
+        >
+          <source src={copy.video} type="video/mp4" />
+        </video>
+      ) : (
+        <img
+          src={copy.heroImage}
+          alt={copy.heroAlt ?? ""}
+          width="1800"
+          height="1200"
+          fetchpriority="high"
+        />
+      )}
     </figure>
     <div class="wrap opening-copy">
       <p class="eyebrow">{site.name}</p>
       <h1 class="display">{copy.headline}</h1>
       <p class="lede">{copy.lede}</p>
-      <div class="hero-actions">
-        <a class="button" href="/contact">Enquire</a>
-      </div>
     </div>
   </section>
 
   {lead && (
     <section class="lead-work">
       <div class="wrap">
-        <p class="eyebrow">Work</p>
+        <p class="eyebrow">{leadIsGodfrey ? "Historic metahuman" : "Work"}</p>
         <h2 class="lead-title">{lead.data.title}</h2>
         {lead.data.pitch && <p class="lead-pitch">{lead.data.pitch}</p>}
         <p class="lead-summary">{lead.data.summary}</p>
+        {leadIsGodfrey && offer.data.figures.length > 0 && (
+          <dl class="figure-list">
+            {offer.data.figures.map((figure) => (
+              <div>
+                <dd>{figure.value}</dd>
+                <dt>{figure.label}</dt>
+              </div>
+            ))}
+          </dl>
+        )}
+        {leadIsGodfrey && offer.data.figureNote && <p class="figure-note">{offer.data.figureNote}</p>}
         <p class="lead-link">
-          <a href={projectPath(lead)}>{lead.data.title}</a>
+          <a href={leadIsGodfrey ? "/godfrey" : projectPath(lead)}>{lead.data.title}</a>
         </p>
       </div>
     </section>
   )}
+
+  <section class="section">
+    <div class="wrap">
+      <p class="section-kicker">Prints</p>
+      <h2 class="section-title">Pictures from the exhibition.</h2>
+      <p>For sale. Name the one you want.</p>
+      <div class="hero-actions offer-actions">
+        <a class="button" href={printsHref} rel="noopener noreferrer">Prints</a>
+      </div>
+    </div>
+  </section>
 
   {rest.length > 0 && (
     <section class="section">
@@ -81,7 +115,7 @@ const study = await getStudy();
           />
         )}
         <div>
-          <p class="section-kicker">Case study</p>
+          <p class="section-kicker">Exhibition</p>
           <h2 class="section-title">{study.data.title}</h2>
           <p>{study.data.pitch ?? study.data.summary}</p>
           <div class="hero-actions">

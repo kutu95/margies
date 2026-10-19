@@ -1,5 +1,5 @@
 ---
-seoTitle: Other work — Margies
+seoTitle: Other work — John Bowskill
 seoDescription: Software, electronics and other projects by John Bowskill, apart from the exhibition installations.
 kicker: Other work
 headline: Other work

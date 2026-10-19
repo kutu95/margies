@@ -34,6 +34,7 @@ const REDIRECTS = new Map([
   ["/projects/layer-painter", "/work/layer-painter"],
   ["/projects/ss-georgette-150th", "/georgette"],
   ["/enquire", "/contact"],
+  ["/prints", "https://exhibition.margies.app/shop"],
 ]);
 
 function redirectTarget(url) {

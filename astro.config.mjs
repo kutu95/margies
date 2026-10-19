@@ -9,6 +9,7 @@ export default defineConfig({
   redirects: {
     "/projects/digital-humans": "/work/captain-godfrey",
     "/enquire": "/contact",
+    "/prints": "https://exhibition.margies.app/shop",
   },
   publicDir: publicDir(),
   fonts: [

@@ -77,6 +77,12 @@ const mailto = `mailto:${site.email}`;
     const endpoint = form.dataset.endpoint ?? "";
     const email = form.dataset.email ?? "";
 
+    const preset = new URLSearchParams(window.location.search).get("subject")?.trim();
+    const subjectInput = form.querySelector('input[name="subject"]');
+    if (preset && subjectInput instanceof HTMLInputElement && !subjectInput.value) {
+      subjectInput.value = preset;
+    }
+
     form.addEventListener("submit", async (event) => {
       const data = new FormData(form);
       if (String(data.get("company") ?? "").trim()) {
