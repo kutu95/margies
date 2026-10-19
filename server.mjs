@@ -1,3 +1,4 @@
+import { createReadStream } from "node:fs";
 import fs from "node:fs/promises";
 import http from "node:http";
 import path from "node:path";
@@ -24,6 +25,8 @@ const TYPES = {
   ".webp": "image/webp",
   ".woff2": "font/woff2",
   ".xml": "application/xml; charset=utf-8",
+  ".mp4": "video/mp4",
+  ".webm": "video/webm",
 };
 
 const REDIRECTS = new Map([
@@ -36,6 +39,26 @@ const REDIRECTS = new Map([
   ["/enquire", "/contact"],
   ["/prints", "https://exhibition.margies.app/shop"],
 ]);
+
+function byteRange(header, size) {
+  const match = /^bytes=(\d*)-(\d*)$/.exec(header.trim());
+  if (!match || size <= 0) return null;
+  const [, startText, endText] = match;
+  if (!startText && !endText) return null;
+
+  if (!startText) {
+    const suffix = Number(endText);
+    if (!Number.isFinite(suffix) || suffix <= 0) return null;
+    return { start: Math.max(0, size - suffix), end: size - 1 };
+  }
+
+  const start = Number(startText);
+  const end = endText ? Number(endText) : size - 1;
+  if (!Number.isFinite(start) || !Number.isFinite(end) || start < 0 || start >= size || end < start) {
+    return null;
+  }
+  return { start, end: Math.min(end, size - 1) };
+}
 
 function redirectTarget(url) {
   const path = url.split("?")[0].replace(/\/$/, "") || "/";
@@ -122,18 +145,48 @@ const server = http.createServer(async (req, res) => {
   }
 
   try {
-    const data = await fs.readFile(file);
     const ext = path.extname(file);
+    const type = TYPES[ext] || "application/octet-stream";
     const cache = file.includes(`${path.sep}_astro${path.sep}`)
       ? "public, max-age=31536000, immutable"
       : ext === ".html" || ext === ".xml" || ext === ".txt"
         ? "public, max-age=60"
         : "public, max-age=604800";
 
+    if (type.startsWith("video/") || type.startsWith("audio/")) {
+      const stat = await fs.stat(file);
+      const range = req.headers.range ? byteRange(req.headers.range, stat.size) : null;
+      if (req.headers.range && !range) {
+        res.writeHead(416, baseHeaders({
+          "Content-Range": `bytes */${stat.size}`,
+          "Accept-Ranges": "bytes",
+        }));
+        res.end();
+        return;
+      }
+
+      const start = range ? range.start : 0;
+      const end = range ? range.end : stat.size - 1;
+      res.writeHead(range ? 206 : status, baseHeaders({
+        "Content-Type": type,
+        "Content-Length": end - start + 1,
+        "Accept-Ranges": "bytes",
+        ...(range ? { "Content-Range": `bytes ${start}-${end}/${stat.size}` } : {}),
+        "Cache-Control": cache,
+      }));
+      if (req.method === "HEAD") {
+        res.end();
+        return;
+      }
+      createReadStream(file, { start, end }).pipe(res);
+      return;
+    }
+
+    const data = await fs.readFile(file);
     res.writeHead(
       status,
       baseHeaders({
-        "Content-Type": TYPES[ext] || "application/octet-stream",
+        "Content-Type": type,
         "Cache-Control": cache,
       }),
     );

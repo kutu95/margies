@@ -3,7 +3,7 @@ seoTitle: ""
 seoDescription: ""
 heroImage: /images/godfrey/poster.jpg
 heroAlt: Captain Godfrey, on the coast.
-video: /video/godfrey/captain-godfrey.mp4
+video: /video/godfrey/captain-godfrey.mp4?v=2
 videoPoster: /images/godfrey/poster.jpg
 videoCaption: Captain Godfrey, on the coast.
 headline: Interactive exhibition and art pieces.
