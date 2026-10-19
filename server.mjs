@@ -30,8 +30,9 @@ const TYPES = {
 };
 
 const REDIRECTS = new Map([
-  ["/projects/digital-humans", "/work/captain-godfrey"],
-  ["/projects/captain-godfrey", "/work/captain-godfrey"],
+  ["/work/captain-godfrey", "/godfrey"],
+  ["/projects/digital-humans", "/godfrey"],
+  ["/projects/captain-godfrey", "/godfrey"],
   ["/projects/cuborama", "/work/cuborama"],
   ["/projects/drift", "/work/drift"],
   ["/projects/layer-painter", "/work/layer-painter"],

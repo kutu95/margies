@@ -1,28 +1,22 @@
 ---
-import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PhotoGallery from "../components/PhotoGallery.astro";
-import { getPage } from "../lib/pages";
+import ContactCTA from "../components/ContactCTA.astro";
+import EvidenceMetrics from "../components/EvidenceMetrics.astro";
 import { breadcrumbJsonLd, creativeWorkJsonLd } from "../lib/seo";
 
-const page = await getPage("godfrey");
-const { Content } = await render(page);
-const title = page.data.seoTitle ?? "Captain Godfrey — John Bowskill";
-const description = page.data.seoDescription ?? page.data.lede ?? "";
+const title = "Captain Godfrey case study | John Bowskill";
+const description = "See how visitors questioned Captain Godfrey at the Georgette 150th exhibition, with recorded engagement and clear measurement limitations.";
 const path = "/godfrey";
-const hero = page.data.heroImage;
-const shareImage = hero || page.data.videoPoster;
-const shareAlt = hero ? page.data.heroAlt : page.data.videoCaption;
-const subject = page.data.enquireSubject ?? "A person our visitors could talk to";
-const contactHref = `/contact?subject=${encodeURIComponent(subject)}`;
+const image = "/images/godfrey/visitors.jpg";
+const imageAlt = "Visitors seated in front of Captain Godfrey at the Georgette 150th exhibition";
 ---
 
 <BaseLayout
   title={title}
   description={description}
   path={path}
-  image={shareImage}
-  imageAlt={shareAlt}
+  image={image}
+  imageAlt={imageAlt}
   type="article"
   jsonLd={[
     breadcrumbJsonLd([
@@ -30,93 +24,77 @@ const contactHref = `/contact?subject=${encodeURIComponent(subject)}`;
       { name: "Captain Godfrey", path },
     ]),
     creativeWorkJsonLd({
-      name: page.data.headline ?? "Captain Godfrey",
+      name: "Captain Godfrey",
       description,
       path,
-      image: hero,
+      image,
     }),
   ]}
 >
   <article>
     <header class="page-hero">
       <div class="wrap">
-        {page.data.kicker && <p class="section-kicker">{page.data.kicker}</p>}
-        <h1 class="page-title">{page.data.headline}</h1>
-        {page.data.lede && <p class="lede">{page.data.lede}</p>}
+        <h1 class="page-title">Captain Godfrey</h1>
+        <p class="lede">A life-sized historical character visitors could speak with at the Georgette 150th exhibition.</p>
+        <p class="lede">
+          Visitors asked Captain John Godfrey, master of the SS Georgette, their own questions about the ship, the wreck, the rescue and his responsibility. The installation answered in real time, making room for each visitor to choose the next topic.
+        </p>
+        <ContactCTA href="/contact?interest=historical-characters" label="Discuss your historical character" />
       </div>
     </header>
 
-    {hero && (
-      <figure class="photo-hero-figure wrap">
-        <img
-          src={hero}
-          alt={page.data.heroAlt ?? ""}
-          width="1800"
-          height="1200"
-          fetchpriority="high"
-        />
-      </figure>
-    )}
-
-    {page.data.video && (
-      <figure class="photo-hero-figure wrap offer-video">
-        <video
-          controls
-          playsinline
-          preload="metadata"
-          poster={page.data.videoPoster}
-          width="1920"
-          height="1080"
-        >
-          <source src={page.data.video} type="video/mp4" />
-        </video>
-        {page.data.videoCaption && <figcaption class="figure-note">{page.data.videoCaption}</figcaption>}
-      </figure>
-    )}
-
     <section class="section">
       <div class="wrap">
-        {page.data.figures.length > 0 && (
-          <dl class="figure-list figure-list-lead">
-            {page.data.figures.map((figure) => (
-              <div>
-                <dd>{figure.value}</dd>
-                <dt>{figure.label}</dt>
-              </div>
-            ))}
-          </dl>
-        )}
-        {page.data.figureNote && <p class="figure-note">{page.data.figureNote}</p>}
-
-        <div class="prose offer-copy">
-          <Content />
-        </div>
-
-        {page.data.ctaTitle && (
-          <div class="hero-actions offer-actions">
-            <a class="button" href={contactHref}>{page.data.ctaTitle}</a>
-          </div>
-        )}
+        <h2 class="section-title">See the conversation</h2>
+        <figure class="photo-hero-figure">
+          <img
+            src={image}
+            alt={imageAlt}
+            width="1800"
+            height="1200"
+            fetchpriority="high"
+          />
+          <figcaption class="figure-note">Captain Godfrey at the Georgette 150th exhibition</figcaption>
+        </figure>
       </div>
     </section>
 
-    {page.data.gallery.length > 0 && (
-      <section class="section-tight">
-        <div class="wrap">
-          <PhotoGallery images={page.data.gallery} />
-        </div>
-      </section>
-    )}
-
-    <section class="section-tight">
-      <div class="wrap inline-links">
+    <section class="section">
+      <div class="wrap prose">
+        <h2>Developed from research and performance</h2>
         <p>
-          <a href="/work/captain-godfrey">At the exhibition</a>
-          {" · "}
-          <a href="/georgette">Georgette 150th</a>
-          {" · "}
-          <a href="/contact">Enquire</a>
+          I developed Captain Godfrey in collaboration with Dr Marcia van Zeller and local actor Errol Beere. The character draws on historical research, including Dr van Zeller’s thesis and the court of inquiry transcript, to support conversations about the Georgette story.
         </p>
+        <p>
+          Godfrey is an AI interpretation of a historical person. His responses are generated, rather than recordings of the historical figure, and can contain errors. Historical sources and interpretation remain essential to the work.
+        </p>
+
+        <h2>Presented to the public</h2>
+        <p>
+          Captain Godfrey made his public debut at the Georgette 150th exhibition during Margaret River Region Open Studios in the Margaret River region. The engagement report covers 15 gallery days within 12–27 September 2026.
+        </p>
+
+        <h2>What the exhibition recorded</h2>
+        <EvidenceMetrics variant="case-study" />
+
+        <h2>Visitors chose the questions</h2>
+        <p>Visitors explored the causes of the wreck, the rescue, responsibility, the ship’s construction and what happened to Godfrey afterwards.</p>
+        <ul>
+          <li>What happened to the Georgette?</li>
+          <li>Was it your fault?</li>
+          <li>Was the inquiry fair?</li>
+          <li>How big was the ship?</li>
+        </ul>
+        <p class="figure-note">
+          Representative phrasings from the report’s documented question groups, normalised for readability. These are not presented as verbatim transcript quotations.
+        </p>
+
+        <h2>What this suggests for your museum</h2>
+        <p>
+          A historical character can offer a shared starting point while allowing visitors to explore different interests. Your collection might prompt questions about a person’s choices, daily life, technology or the evidence behind a familiar story. A commission begins by considering which subject and source material could support that kind of encounter.
+        </p>
+        <ContactCTA href="/contact?interest=historical-characters" label="Discuss your historical character" />
+        <p><a href="/georgette">Explore the Georgette 150th exhibition</a></p>
       </div>
     </section>
   </article>

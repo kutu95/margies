@@ -1,27 +1,39 @@
 ---
 title: Layer Painter
-summary: For an art class or a school. Students add to one picture. At the end, it is theirs.
-pitch: For an art class. One picture, made by the students.
-category: Participatory artwork
+summary: Software and projection guide the transfer of a chosen image into a physical painting.
+pitch: A projection-based painting assistant.
+category: Painting assistant
 disciplines:
-  - Immersive
   - Software
+  - Immersive
 technologies:
-  - Collaborative image
-  - Exhibition installation
-status: live
-hero: ""
-heroAlt: ""
+  - Colour palettes
+  - Paint recipes
+  - Projected masks
+status: experimental
+hero: /images/projects/layer-painter/hero.svg
+heroAlt: Stacked sheets becoming one picture.
 year: "2026"
 featured: true
 order: 4
 placement: work
-seoTitle: Layer Painter — John Bowskill
-seoDescription: Layer Painter is for art teachers and schools. Students add to one picture. At the end, the picture is theirs. It can also run in an exhibition.
+seoTitle: Layer Painter painting assistant | John Bowskill
+seoDescription: Explore a projection-based painting assistant that creates colour palettes, paint recipes and canvas masks. Developed and used in-house.
 ---
 
-A class adds to one picture. Each student contributes a layer. At the end, the picture is theirs.
+Layer Painter combines software I developed with a projector focused on a canvas. It turns a chosen image into a selected number of colours, calculates paint recipes using paint libraries and projects a mask for each colour onto the painting surface.
 
-It can run in a classroom or in an exhibition. At the Georgette 150th, the picture grew from what people added. It is not a comment wall. It becomes one artwork.
+## From an image to a painting
 
-[Georgette 150th](/georgette) · [Captain Godfrey](/work/captain-godfrey) · [Cuborama](/work/cuborama) · [Drift](/work/drift)
+1. Choose a photograph or digital image you have permission to use.
+2. Select a colour palette.
+3. Use the calculated paint recipes to prepare the colours.
+4. Paint the area shown by each projected mask, then move to the next colour.
+
+## Developed and used in-house
+
+Layer Painter is working and has been used to create paintings in my own practice. It has not yet been tested with independent public users. I’m interested in discussing potential uses with artists and educators as the project develops.
+
+## Discuss the possibilities
+
+The software, projector and physical setup need to work together. The best way to supply and support the system is still being explored.

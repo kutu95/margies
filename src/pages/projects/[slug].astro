@@ -8,7 +8,7 @@ import { breadcrumbJsonLd, creativeWorkJsonLd } from "../../lib/seo";
 export async function getStaticPaths() {
   const projects = await getProjects();
   return projects
-    .filter((project) => project.data.placement === "work" || project.data.placement === "study")
+    .filter((project) => (project.data.placement === "work" || project.data.placement === "study") && project.id !== "captain-godfrey")
     .map((project) => ({
       params: { slug: project.id },
       props: { project },
@@ -142,7 +142,7 @@ const meta = [project.data.category, statusLabel(project.data.status), project.d
         <p>
           <a href="/projects">← All projects</a>
           {" · "}
-          <a href="/contact">Enquire</a>
+          <a href="/contact">Discuss an installation</a>
         </p>
       </div>
     </section>

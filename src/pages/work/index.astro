@@ -1,12 +1,37 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getWorks, hasPhotograph, projectPath } from "../../lib/projects";
+import ContactCTA from "../../components/ContactCTA.astro";
 import { breadcrumbJsonLd } from "../../lib/seo";
 
-const works = await getWorks();
-const [lead, ...rest] = works;
-const title = "Work — John Bowskill";
-const description = "Captain Godfrey, Cuborama, Drift and Layer Painter. Interactive pieces for galleries, museums and exhibitions. Layer Painter is for an art class.";
+const title = "Interactive works | John Bowskill";
+const description = "Explore Captain Godfrey, Cuborama, Drift and Layer Painter, combining art, storytelling, software and physical interaction.";
+
+const works = [
+  {
+    href: "/godfrey",
+    title: "Captain Godfrey",
+    text: "A historical character visitors can question in real time. Explore the September 2026 exhibition and its recorded interactions.",
+    image: "/images/godfrey/visitors.jpg",
+    alt: "Visitors seated in front of Captain Godfrey at the Georgette 150th exhibition",
+  },
+  {
+    href: "/work/cuborama",
+    title: "Cuborama",
+    text: "Four walls of projected imagery create a room visitors can step into.",
+    image: "/images/photography/georgette/installation.jpg",
+    alt: "John Bowskill seated in a dark room while underwater photographs are projected across the walls",
+  },
+  {
+    href: "/work/drift",
+    title: "Drift",
+    text: "A photographic display that changes in response to the viewer’s position.",
+  },
+  {
+    href: "/work/layer-painter",
+    title: "Layer Painter",
+    text: "Software and projection guide the transfer of a chosen image into a physical painting.",
+  },
+];
 ---
 
 <BaseLayout
@@ -15,55 +40,39 @@ const description = "Captain Godfrey, Cuborama, Drift and Layer Painter. Interac
   path="/work"
   jsonLd={breadcrumbJsonLd([
     { name: "Home", path: "/" },
-    { name: "Work", path: "/work" },
+    { name: "Interactive works", path: "/work" },
   ])}
 >
   <header class="page-hero">
     <div class="wrap">
-      <p class="section-kicker">Work</p>
-      <h1 class="page-title">Four examples.</h1>
-      <p class="lede">Captain Godfrey is perfect for a gallery or a museum. Layer Painter is the one for an art class. Cuborama and Drift each stand on their own at an exhibition, gallery or festival.</p>
-      <p class="lede">Four interactive installations were created for Open Studios 2026. Captain Godfrey is an interactive and fully conversant audio/visual character. Cuborama is a microcinema for immersive 360 degree video. Drift is a physically interactive photo album. Layer Painter is a tool that enables anyone to paint a beautiful picture.</p>
+      <h1 class="page-title">Interactive works</h1>
+      <p class="lede">
+        I develop experiences that respond to people: through conversation, movement, projected environments and the process of making a painting. Explore the work and the different ways it can connect people with images and stories.
+      </p>
     </div>
   </header>
 
-  {lead && (
-    <section class="lead-work">
-      <div class="wrap">
-        <h2 class="lead-title">{lead.data.title}</h2>
-        {lead.data.pitch && <p class="lead-pitch">{lead.data.pitch}</p>}
-        <p class="lead-summary">{lead.data.summary}</p>
-        <p class="lead-link">
-          <a href={projectPath(lead)}>{lead.data.title}</a>
-        </p>
+  <section class="section">
+    <div class="wrap">
+      <div class="project-grid">
+        {works.map((work) => (
+          <a class="project-card-link" href={work.href}>
+            {work.image && (
+              <img src={work.image} alt={work.alt} width="1800" height="1200" loading="lazy" decoding="async" />
+            )}
+            <h2>{work.title}</h2>
+            <p>{work.text}</p>
+          </a>
+        ))}
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
   <section class="section">
-    <div class="wrap work-features">
-      {rest.map((work) => (
-        <article class="work-feature">
-          {hasPhotograph(work.data.hero) && (
-            <a href={projectPath(work)}>
-              <img
-                src={work.data.hero}
-                alt={work.data.heroAlt}
-                width="1800"
-                height="1200"
-                loading="lazy"
-                decoding="async"
-              />
-            </a>
-          )}
-          <div>
-            <h2 class="section-title">{work.data.title}</h2>
-            {work.data.pitch && <p class="work-feature-pitch">{work.data.pitch}</p>}
-            <p>{work.data.summary}</p>
-            <p><a href={projectPath(work)}>{work.data.title}</a></p>
-          </div>
-        </article>
-      ))}
+    <div class="wrap">
+      <h2 class="section-title">Have a setting or a story in mind?</h2>
+      <p class="lede">Tell me about the space, audience and material you would like to work with.</p>
+      <ContactCTA href="/contact" label="Discuss an installation" />
     </div>
   </section>
 </BaseLayout>

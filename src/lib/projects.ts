@@ -24,7 +24,7 @@ export function hasPhotograph(src: string | undefined): src is string {
 
 export async function getWorks(): Promise<Project[]> {
   const projects = await getProjects();
-  return projects.filter((project) => project.data.placement === "work");
+  return projects.filter((project) => project.data.placement === "work" && project.id !== "captain-godfrey");
 }
 
 export async function getArchiveProjects(): Promise<Project[]> {

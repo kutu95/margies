@@ -1,7 +1,7 @@
 ---
 title: Georgette 150th
-summary: Four installations in one public exhibition about the wreck of the SS Georgette, Margaret River, September 2026.
-pitch: Installed together, and used by the public.
+summary: Photography, history and interactive work from the Georgette 150th exhibition in the Margaret River region, September 2026.
+pitch: Photography, history and interactive work at Margaret River Region Open Studios.
 category: Exhibition
 disciplines:
   - Photography
@@ -16,7 +16,7 @@ technologies:
   - Captain Godfrey
 status: live
 url: https://exhibition.margies.app/
-urlLabel: Visit the exhibition
+urlLabel: Visit the exhibition website
 relatedPhotography: ss-georgette
 hero: /images/projects/georgette/hero.jpg
 heroAlt: Aerial photograph of the SS Georgette wreck lying in clear water off Redgate Beach
@@ -37,35 +37,34 @@ year: "2026"
 featured: false
 order: 5
 placement: study
-seoTitle: Georgette 150th — John Bowskill
-seoDescription: The Georgette 150th exhibition in Margaret River installed Captain Godfrey, Cuborama, Drift and Layer Painter together, and opened them to the public.
+seoTitle: Georgette 150th exhibition | John Bowskill
+seoDescription: Explore photography, history and interactive work from John Bowskill’s Georgette 150th exhibition in September 2026.
 meta:
   Location: Margaret River region, Western Australia
   Dates: 12–27 September 2026
   Live site: exhibition.margies.app
 ---
 
-The SS Georgette wreck is off Redgate Beach, near where I live. I photographed it for years. The 150th anniversary was a reason to put the work in a room, during Margaret River Region Open Studios, 12–27 September 2026.
+The SS Georgette wreck lies off Redgate Beach, near where I live. Photographing the wreck and its surroundings developed into an exhibition presented in the Margaret River region during 12–27 September 2026.
 
-Four works were installed together, and people used them:
+## Exploring the story
 
-- [Captain Godfrey](/godfrey) — a historic metahuman you can speak with
-- [Cuborama](/work/cuborama) — a room of projected image
-- [Drift](/work/drift) — a picture that responds to movement
-- [Layer Painter](/work/layer-painter) — one artwork made by the visitors
-
-They are not proposals. They ran in the same exhibition.
+Captain Godfrey invited spoken questions about the ship and its history. Cuborama placed visitors within a room of projected imagery, while Drift responded to movement through a photographic collection. Layer Painter formed part of the wider body of work; the paintings made with it were developed in-house.
 
 ## Photography
 
-Land, drone and underwater photographs from Calgardup Bay, Redgate Beach and Isaac Rock. The same pictures had to work as prints and as projection.
+Land, drone and underwater photographs explore the wreck and the surrounding coast. Selected photographs are available as prints.
 
-[Prints](https://exhibition.margies.app/shop) from these pictures are for sale.
+[View photographic prints](https://exhibition.margies.app/shop)
 
 ## Historical research
 
-The exhibition needed a record of the ship and the wreck, not only pictures. That included archives, and a trip to the Clyde, where she was built. There is a book as well. The story itself is on the [exhibition site](https://exhibition.margies.app/).
+The exhibition brought photographic work together with historical research into the ship and its story. Explore the exhibition website for more background.
+
+[Visit the exhibition website](https://exhibition.margies.app/)
 
 ## The room
 
-Prints, light, labels, and the four installations. Cuborama Studio is the tool I wrote to compose the four projected walls. The public site for the show is [exhibition.margies.app](https://exhibition.margies.app/).
+Photographs and projected imagery shared the exhibition space with interactive work. Explore the individual projects to see how each approached the story.
+
+[Explore interactive works](/work)

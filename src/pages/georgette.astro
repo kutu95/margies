@@ -40,7 +40,6 @@ const showHero = hasPhotograph(project.data.hero);
   <article>
     <header class="page-hero">
       <div class="wrap">
-        <p class="section-kicker">Exhibition</p>
         <h1 class="page-title">{project.data.title}</h1>
         {project.data.pitch && <p class="lede">{project.data.pitch}</p>}
         <p class="meta-row">Margaret River · {project.data.year}</p>
@@ -90,15 +89,15 @@ const showHero = hasPhotograph(project.data.hero);
     <section class="section-tight">
       <div class="wrap inline-links">
         <p>
-          <a href="/work">The four works</a>
+          <a href="/work">Explore interactive works</a>
           {" · "}
-          <a href="https://exhibition.margies.app/shop" rel="noopener noreferrer">Prints</a>
+          <a href="https://exhibition.margies.app/shop" rel="noopener noreferrer">View photographic prints</a>
           {" · "}
           {project.data.url && (
             <a href={project.data.url} rel="noopener noreferrer">Exhibition site</a>
           )}
           {project.data.url && " · "}
-          <a href="/contact">Enquire</a>
+          <a href="/contact">Discuss an installation</a>
         </p>
       </div>
     </section>

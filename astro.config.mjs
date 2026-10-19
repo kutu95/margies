@@ -7,7 +7,9 @@ export default defineConfig({
   trailingSlash: "never",
   compressHTML: true,
   redirects: {
-    "/projects/digital-humans": "/work/captain-godfrey",
+    "/work/captain-godfrey": "/godfrey",
+    "/projects/captain-godfrey": "/godfrey",
+    "/projects/digital-humans": "/godfrey",
     "/enquire": "/contact",
     "/prints": "https://exhibition.margies.app/shop",
   },

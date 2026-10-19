@@ -1,6 +1,7 @@
 ---
 import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactCTA from "../components/ContactCTA.astro";
 import { getPage } from "../lib/pages";
 import { breadcrumbJsonLd, personJsonLd } from "../lib/seo";
 
@@ -20,14 +21,14 @@ const description = page.data.seoDescription ?? "";
     personJsonLd(),
     breadcrumbJsonLd([
       { name: "Home", path: "/" },
-      { name: "About", path: "/about" },
+      { name: "About John", path: "/about" },
     ]),
   ]}
 >
   <header class="page-hero">
     <div class="wrap">
-      <p class="section-kicker">{page.data.kicker}</p>
       <h1 class="page-title">{page.data.headline}</h1>
+      {page.data.lede && <p class="lede">{page.data.lede}</p>}
     </div>
   </header>
 
@@ -45,6 +46,7 @@ const description = page.data.seoDescription ?? "";
 
       <div class="prose">
         <Content />
+        {page.data.ctaTitle && <ContactCTA href="/contact" label={page.data.ctaTitle} />}
       </div>
     </div>
   </section>

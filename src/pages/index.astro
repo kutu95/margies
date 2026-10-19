@@ -1,138 +1,132 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { printsHref, site } from "../config/site";
-import { getPage } from "../lib/pages";
-import { getStudy, getWorks, hasPhotograph, projectPath } from "../lib/projects";
-import { organizationJsonLd, personJsonLd, websiteJsonLd } from "../lib/seo";
+import ContactCTA from "../components/ContactCTA.astro";
+import EvidenceMetrics from "../components/EvidenceMetrics.astro";
+import { site } from "../config/site";
+import { personJsonLd, websiteJsonLd } from "../lib/seo";
 
-const page = await getPage("home");
-const offer = await getPage("godfrey");
-const copy = page.data;
-const works = await getWorks();
-const [lead, ...rest] = works;
-const leadIsGodfrey = lead?.id === "captain-godfrey";
-const study = await getStudy();
+const works = [
+  {
+    href: "/work/cuborama",
+    title: "Cuborama",
+    text: "Step into a room of projected imagery, with a visual world continuing across four walls.",
+    image: "/images/photography/georgette/installation.jpg",
+    alt: "John Bowskill seated in a dark room while underwater photographs are projected across the walls",
+  },
+  {
+    href: "/work/drift",
+    title: "Drift",
+    text: "Explore a photographic collection through movement. The image changes in response to where the viewer stands.",
+  },
+  {
+    href: "/work/layer-painter",
+    title: "Layer Painter",
+    text: "A projection-based painting assistant that turns a chosen image into a palette, paint recipes and masks on a canvas.",
+  },
+];
 ---
 
 <BaseLayout
   title={site.title}
   description={site.description}
   path="/"
-  image={copy.heroImage}
-  imageAlt={copy.heroAlt}
-  jsonLd={[personJsonLd(), organizationJsonLd(), websiteJsonLd()]}
+  image="/images/godfrey/poster.jpg"
+  imageAlt="Captain Godfrey on the coast"
+  jsonLd={[personJsonLd(), websiteJsonLd()]}
 >
-  <section class="opening">
-    <figure class="opening-media">
-      {copy.video ? (
-        <video
-          controls
-          playsinline
-          preload="metadata"
-          poster={copy.videoPoster}
-          width="1920"
-          height="1080"
-        >
-          <source src={copy.video} type="video/mp4" />
-        </video>
-      ) : (
-        <img
-          src={copy.heroImage}
-          alt={copy.heroAlt ?? ""}
-          width="1800"
-          height="1200"
-          fetchpriority="high"
-        />
-      )}
-    </figure>
-    <div class="wrap opening-copy">
-      <p class="eyebrow">{site.name}</p>
-      <h1 class="display">{copy.headline}</h1>
-      <p class="lede">{copy.lede}</p>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">John Bowskill · Artist and technologist</p>
+      <h1 class="display">Let your visitors talk to history</h1>
+      <p class="lede">
+        I create original interactive experiences for museums, galleries and cultural institutions. From life-sized historical characters visitors can speak with to immersive projection and responsive photography, my work brings art, storytelling and technology together.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="/contact">Discuss an installation</a>
+        <a class="button button-ghost" href="/godfrey">Explore Captain Godfrey</a>
+      </div>
     </div>
   </section>
 
-  {lead && (
-    <section class="lead-work">
-      <div class="wrap">
-        <p class="eyebrow">{leadIsGodfrey ? "Historic metahuman" : "Work"}</p>
-        <h2 class="lead-title">{lead.data.title}</h2>
-        {lead.data.pitch && <p class="lead-pitch">{lead.data.pitch}</p>}
-        <p class="lead-summary">{lead.data.summary}</p>
-        {leadIsGodfrey && offer.data.figures.length > 0 && (
-          <dl class="figure-list">
-            {offer.data.figures.map((figure) => (
-              <div>
-                <dd>{figure.value}</dd>
-                <dt>{figure.label}</dt>
-              </div>
-            ))}
-          </dl>
-        )}
-        {leadIsGodfrey && offer.data.figureNote && <p class="figure-note">{offer.data.figureNote}</p>}
-        <p class="lead-link">
-          <a href={leadIsGodfrey ? "/godfrey" : projectPath(lead)}>{lead.data.title}</a>
-        </p>
-      </div>
-    </section>
-  )}
+  <figure class="opening-media wrap">
+    <video
+      controls
+      playsinline
+      preload="metadata"
+      poster="/images/godfrey/poster.jpg"
+      width="1920"
+      height="1080"
+      aria-label="Short film of Captain Godfrey"
+    >
+      <source src="/video/godfrey/captain-godfrey.mp4?v=2" type="video/mp4" />
+    </video>
+    <figcaption class="figure-note">A short film of Captain Godfrey.</figcaption>
+  </figure>
 
   <section class="section">
     <div class="wrap">
-      <p class="section-kicker">Prints</p>
-      <h2 class="section-title">Pictures from the exhibition.</h2>
-      <p>For sale. Name the one you want.</p>
-      <div class="hero-actions offer-actions">
-        <a class="button" href={printsHref} rel="noopener noreferrer">Prints</a>
+      <h2 class="section-title">Meet Captain Godfrey</h2>
+      <p class="lede">
+        Visitors approached a life-sized representation of Captain John Godfrey of the SS Georgette and asked their own questions about the wreck, the rescue and his decisions. The installation was presented at the Georgette 150th exhibition during Margaret River Region Open Studios in September 2026.
+      </p>
+      <EvidenceMetrics variant="home" />
+      <ContactCTA href="/godfrey" label="See the experience and exhibition results" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">Who could your visitors meet?</h2>
+      <p class="lede">
+        A person connected to your collection can give visitors a new way into its stories. I can develop a conversational historical character around a subject and source material agreed with your institution, bringing together research, performance, visual design and software.
+      </p>
+      <ContactCTA href="/historical-characters" label="Explore historical character commissions" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">Other ways to experience a story</h2>
+      <div class="project-grid">
+        {works.map((work) => (
+          <a class="project-card-link" href={work.href}>
+            {work.image && <img src={work.image} alt={work.alt} width="1800" height="1200" loading="lazy" decoding="async" />}
+            <h3>{work.title}</h3>
+            <p>{work.text}</p>
+          </a>
+        ))}
+      </div>
+      <p class="lead-link"><a href="/work">Explore interactive works</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap study-grid">
+      <img
+        src="/images/john-bowskill.jpg"
+        alt="John Bowskill standing outdoors in the Margaret River region"
+        width="800"
+        height="705"
+        loading="lazy"
+        decoding="async"
+      />
+      <div>
+        <h2 class="section-title">Art and technology developed together</h2>
+        <p>
+          I’m John Bowskill, an independent artist and technologist based in the Margaret River region of Western Australia. I develop the creative ideas and the software that make these experiences possible.
+        </p>
+        <ContactCTA href="/about" label="About my practice" />
       </div>
     </div>
   </section>
 
-  {rest.length > 0 && (
-    <section class="section">
-      <div class="wrap work-list">
-        {rest.map((work) => (
-          <a class="work-row" href={projectPath(work)}>
-            <h2>{work.data.title}</h2>
-            <p>{work.data.pitch ?? work.data.summary}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-  )}
-
-  {study && (
-    <section class="section">
-      <div class="wrap study-grid">
-        {hasPhotograph(study.data.hero) && (
-          <img
-            src={study.data.hero}
-            alt={study.data.heroAlt}
-            width="1400"
-            height="788"
-            loading="lazy"
-            decoding="async"
-          />
-        )}
-        <div>
-          <p class="section-kicker">Exhibition</p>
-          <h2 class="section-title">{study.data.title}</h2>
-          <p>{study.data.pitch ?? study.data.summary}</p>
-          <div class="hero-actions">
-            <a class="button" href={projectPath(study)}>Georgette 150th</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <section class="section cta">
+  <section class="section">
     <div class="wrap">
-      <h2 class="section-title">{copy.ctaTitle}</h2>
-      <p>{copy.ctaText}</p>
-      <div class="hero-actions" style="margin-top: 1.5rem;">
-        <a class="button" href="/contact">Enquire</a>
-      </div>
+      <h2 class="section-title">An idea for your museum or exhibition?</h2>
+      <p class="lede">
+        Tell me about your collection, your audience and the experience you would like to create. We can discuss the creative possibilities and the practical questions around development, installation and ongoing operation.
+      </p>
+      <ContactCTA href="/contact" label="Discuss an installation" />
     </div>
   </section>
 </BaseLayout>

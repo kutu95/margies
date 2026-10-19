@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title">
+  <title id="title">Drift, a picture that moves as a visitor moves</title>
+  <rect width="1600" height="1000" fill="#e8e4da"/>
+  <rect x="70" y="70" width="1180" height="740" fill="#d9d3c6" stroke="#171614" stroke-width="4"/>
+  <rect x="190" y="150" width="1180" height="740" fill="#efeae1" stroke="#171614" stroke-width="4"/>
+  <rect x="310" y="230" width="1180" height="700" fill="#f3f1eb" stroke="#171614" stroke-width="4"/>
+  <path d="M390 760c160-150 300-150 470 0s280 40 520-80" fill="none" stroke="#2f3d32" stroke-width="10"/>
+  <path d="M390 820h980" stroke="#171614" stroke-width="3"/>
+</svg>

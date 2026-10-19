@@ -1,5 +1,5 @@
 ---
-import { nav, site } from "../config/site";
+import { footerNav, site } from "../config/site";
 ---
 
 <footer class="site-footer">
@@ -15,7 +15,7 @@ import { nav, site } from "../config/site";
       </p>
     </div>
     <nav class="footer-nav" aria-label="Footer">
-      {nav.map((item) => (
+      {footerNav.map((item) => (
         <a href={item.href} rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}>{item.label}</a>
       ))}
     </nav>

@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+import { breadcrumbJsonLd } from "../lib/seo";
+
+const title = "Conversational historical characters | John Bowskill";
+const description = "Explore commissioned historical characters visitors can speak with, with Captain Godfrey as a public exhibition example.";
+const path = "/historical-characters";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  image="/images/godfrey/visitors.jpg"
+  imageAlt="Visitors seated in front of Captain Godfrey at the Georgette 150th exhibition"
+  jsonLd={breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Historical Characters", path },
+  ])}
+>
+  <article>
+    <header class="page-hero">
+      <div class="wrap">
+        <h1 class="page-title">Historical characters your visitors can speak with</h1>
+        <p class="lede">
+          Give visitors someone from the past to question. I create life-sized conversational characters that respond to spoken questions, allowing people to follow their own curiosity through a historical story.
+        </p>
+        <ContactCTA href="/contact?interest=historical-characters" label="Discuss your historical character" />
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="wrap prose">
+        <h2>A conversation shaped by your collection</h2>
+        <p>
+          A commission begins with the person, the story and the evidence. Together we can explore which historical figure could offer a useful perspective on your collection, what visitors might ask and how the character should sit within your exhibition.
+        </p>
+        <p>
+          The creative and technical work can bring together historical source material, character design, voice and performance, conversational software and the physical installation. The scope is agreed for each project.
+        </p>
+
+        <h2>See Captain Godfrey in conversation</h2>
+        <p>
+          Captain Godfrey was developed around the history of the SS Georgette and presented to the public in September 2026. Visitors asked about the wreck, the rescue, responsibility and life aboard the ship.
+        </p>
+        <p><a href="/godfrey">Explore the Captain Godfrey case study</a></p>
+
+        <h2>Developing an installation</h2>
+        <ol class="process-steps">
+          <li><strong>Explore the story</strong> — Discuss your audience, collection, historical subject and available research.</li>
+          <li><strong>Agree the scope</strong> — Define the character, interpretive approach, responsibilities, installation requirements and commercial terms.</li>
+          <li><strong>Develop and review</strong> — Bring together the creative and technical elements, with review of the interpretation and visitor experience.</li>
+          <li><strong>Prepare for operation</strong> — Agree installation, testing, staff guidance and arrangements for ongoing services before launch.</li>
+        </ol>
+
+        <h2>Practical questions belong in the conversation</h2>
+        <p>
+          The physical space, sound environment, display, microphone, computer and network requirements all affect the experience. We can discuss these alongside your staffing, interpretive review and operating needs before a proposal is finalised.
+        </p>
+
+        <h2>Licensing and ongoing operation</h2>
+        <p>
+          My approach is to retain ownership of the character assets, software and underlying technology I create, subject to third-party rights, and grant the institution an agreed licence to exhibit and operate the installation. Rights in material supplied by your institution or other contributors need to be agreed separately.
+        </p>
+        <p>
+          Licence duration, permitted use, service costs and responsibilities are defined in the project agreement. Monitoring, maintenance, AI services and support arrangements are discussed separately and confirmed in writing for each installation.
+        </p>
+
+        <h2>Start with a person or a story</h2>
+        <p>
+          You do not need a finished technical brief. Tell me what your institution would like visitors to explore, and we can discuss whether a conversational character is a suitable approach.
+        </p>
+        <ContactCTA href="/contact" label="Discuss an installation" />
+      </div>
+    </section>
+  </article>
+</BaseLayout>

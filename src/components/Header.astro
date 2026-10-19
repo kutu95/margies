@@ -1,5 +1,5 @@
 ---
-import { nav, site } from "../config/site";
+import { headerNav, site } from "../config/site";
 
 const current = Astro.url.pathname.replace(/\/$/, "") || "/";
 
@@ -15,12 +15,14 @@ function isCurrent(href: string): boolean {
     <a class="brand" href="/">
       <span class="brand-name">{site.name}</span>
     </a>
-    <nav class="nav" aria-label="Primary">
-      {nav.map((item) => (
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+      Menu
+    </button>
+    <nav class="nav" id="primary-nav" aria-label="Primary" data-open="false">
+      {headerNav.map((item) => (
         <a
           href={item.href}
           aria-current={isCurrent(item.href) ? "page" : undefined}
-          rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
         >
           {item.label}
         </a>
@@ -28,3 +30,35 @@ function isCurrent(href: string): boolean {
     </nav>
   </div>
 </header>
+
+<script>
+  const button = document.querySelector(".nav-toggle");
+  const nav = document.getElementById("primary-nav");
+  if (button instanceof HTMLButtonElement && nav) {
+    const setOpen = (open: boolean) => {
+      button.setAttribute("aria-expanded", open ? "true" : "false");
+      button.textContent = open ? "Close" : "Menu";
+      nav.dataset.open = open ? "true" : "false";
+    };
+
+    button.addEventListener("click", () => {
+      const open = button.getAttribute("aria-expanded") !== "true";
+      setOpen(open);
+      if (open) {
+        const first = nav.querySelector("a");
+        if (first instanceof HTMLElement) first.focus();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && button.getAttribute("aria-expanded") === "true") {
+        setOpen(false);
+        button.focus();
+      }
+    });
+
+    nav.addEventListener("click", (event) => {
+      if (event.target instanceof HTMLAnchorElement) setOpen(false);
+    });
+  }
+</script>

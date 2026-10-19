@@ -1,6 +1,7 @@
 ---
 import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactCTA from "../../components/ContactCTA.astro";
 import { getWorks, hasPhotograph, projectPath, type Project } from "../../lib/projects";
 import { breadcrumbJsonLd, creativeWorkJsonLd } from "../../lib/seo";
 
@@ -22,6 +23,12 @@ const path = projectPath(project);
 const title = project.data.seoTitle ?? `${project.data.title} — John Bowskill`;
 const description = project.data.seoDescription ?? project.data.summary;
 const showHero = hasPhotograph(project.data.hero);
+const enquiries: Record<string, { label: string; interest: string }> = {
+  cuborama: { label: "Discuss a Cuborama installation", interest: "cuborama" },
+  drift: { label: "Discuss Drift for your collection", interest: "drift" },
+  "layer-painter": { label: "Enquire about Layer Painter", interest: "layer-painter" },
+};
+const enquiry = enquiries[project.id];
 ---
 
 <BaseLayout
@@ -34,7 +41,7 @@ const showHero = hasPhotograph(project.data.hero);
   jsonLd={[
     breadcrumbJsonLd([
       { name: "Home", path: "/" },
-      { name: "Work", path: "/work" },
+      { name: "Interactive works", path: "/work" },
       { name: project.data.title, path },
     ]),
     creativeWorkJsonLd({
@@ -50,7 +57,7 @@ const showHero = hasPhotograph(project.data.hero);
     <header class="page-hero">
       <div class="wrap">
         <p class="section-kicker">
-          <a href="/work">Work</a>
+          <a href="/work">Interactive works</a>
         </p>
         <h1 class="page-title">{project.data.title}</h1>
         {project.data.pitch && <p class="lede">{project.data.pitch}</p>}
@@ -76,13 +83,8 @@ const showHero = hasPhotograph(project.data.hero);
           <Content />
         </div>
 
-        {project.data.technologies.length > 0 && (
-          <div style="margin-top: 2.5rem;">
-            <h2 class="section-title section-title-small">Tools</h2>
-            <ul class="tech-list">
-              {project.data.technologies.map((tech) => <li>{tech}</li>)}
-            </ul>
-          </div>
+        {enquiry && (
+          <ContactCTA href={`/contact?interest=${enquiry.interest}`} label={enquiry.label} />
         )}
       </div>
     </div>
@@ -90,11 +92,11 @@ const showHero = hasPhotograph(project.data.hero);
     <section class="section-tight">
       <div class="wrap inline-links">
         <p>
-          <a href="/work">← Work</a>
+          <a href="/work">Interactive works</a>
           {" · "}
           <a href="/georgette">Georgette 150th</a>
           {" · "}
-          <a href="/contact">Enquire</a>
+          <a href="/contact">Discuss an installation</a>
         </p>
       </div>
     </section>

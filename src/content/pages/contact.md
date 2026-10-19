@@ -1,7 +1,6 @@
 ---
-seoTitle: Enquire — John Bowskill
-seoDescription: Enquire about an interactive piece for a gallery, museum or exhibition, or about a print.
-kicker: Enquire
-headline: Tell me the person, the exhibition, or the print.
-lede: For a gallery, a museum or an exhibition. If it can be stood inside, I will say so.
+seoTitle: Discuss an installation | John Bowskill
+seoDescription: Contact John Bowskill about historical characters, interactive installations and creative collaborations for museums, galleries and exhibitions.
+headline: Discuss an installation for your museum
+lede: Tell me about your collection, your audience or the story you would like visitors to explore. You can also use this form to ask about another project or request a meeting.
 ---

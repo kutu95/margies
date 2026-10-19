@@ -1,18 +1,13 @@
 ---
 /**
- * Contact form.
+ * Enquiry form.
  *
- * If PUBLIC_CONTACT_FORM_ENDPOINT is set, the form POSTs JSON to that URL.
- * Otherwise it falls back to a mailto: action so the page still works
- * without inventing a backend or API key.
- *
- * To wire a real backend later:
- * 1. Create a Cloudflare Worker, Formspree form, or similar endpoint.
- * 2. Accept JSON: { name, email, subject, message }.
- * 3. Put the URL in PUBLIC_CONTACT_FORM_ENDPOINT.
- * 4. Reject submissions when the honeypot field `company` is filled.
+ * There is no mail provider configured in this repository. Submit opens the
+ * visitor's email app. A direct address stays visible on the page.
+ * If PUBLIC_CONTACT_FORM_ENDPOINT is set, the form POSTs JSON instead.
+ * The recipient is never taken from the browser.
  */
-import { site } from "../config/site";
+import { enquiryInterests, site } from "../config/site";
 
 const endpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? "";
 const mailto = `mailto:${site.email}`;
@@ -25,7 +20,13 @@ const mailto = `mailto:${site.email}`;
   action={endpoint || mailto}
   data-endpoint={endpoint}
   data-email={site.email}
+  novalidate
 >
+  <div class="error-summary" data-error-summary tabindex="-1" hidden>
+    <p>Please check the following:</p>
+    <ul data-error-list></ul>
+  </div>
+
   <div class="honeypot" aria-hidden="true">
     <label>
       Company
@@ -33,32 +34,43 @@ const mailto = `mailto:${site.email}`;
     </label>
   </div>
 
-  <label>
+  <label for="enquiry-name">
     Name
-    <input type="text" name="name" autocomplete="name" required />
+    <input id="enquiry-name" type="text" name="name" autocomplete="name" maxlength="120" required aria-describedby="enquiry-name-error" />
   </label>
+  <p id="enquiry-name-error" class="form-error" hidden></p>
 
-  <label>
+  <label for="enquiry-organisation">
+    Institution or organisation
+    <input id="enquiry-organisation" type="text" name="organisation" autocomplete="organization" maxlength="200" aria-describedby="enquiry-organisation-error" />
+  </label>
+  <p id="enquiry-organisation-error" class="form-error" hidden></p>
+
+  <label for="enquiry-email">
     Email
-    <input type="email" name="email" autocomplete="email" required />
+    <input id="enquiry-email" type="email" name="email" autocomplete="email" maxlength="254" required aria-describedby="enquiry-email-error" />
+  </label>
+  <p id="enquiry-email-error" class="form-error" hidden></p>
+
+  <label for="enquiry-interest">
+    I’m interested in
+    <select id="enquiry-interest" name="interest">
+      <option value="">Please select</option>
+      {enquiryInterests.map((item) => (
+        <option value={item.value}>{item.label}</option>
+      ))}
+    </select>
   </label>
 
-  <label>
-    The person, place or story
-    <input
-      type="text"
-      name="subject"
-      placeholder="A person our visitors could talk to"
-    />
+  <label for="enquiry-message">
+    What would you like to discuss?
+    <textarea id="enquiry-message" name="message" required minlength="10" maxlength="5000" aria-describedby="enquiry-message-hint enquiry-message-error"></textarea>
   </label>
-
-  <label>
-    Message
-    <textarea name="message" required></textarea>
-  </label>
+  <p id="enquiry-message-hint" class="hint">A short outline is enough. You can include a request for a meeting.</p>
+  <p id="enquiry-message-error" class="form-error" hidden></p>
 
   {endpoint ? (
-    <p class="form-note">Messages are sent through the site contact form.</p>
+    <p class="form-note">This form sends the enquiry from the site. You can also write to <a href={mailto}>{site.email}</a>.</p>
   ) : (
     <p class="form-note">
       Submit opens a message to <a href={mailto}>{site.email}</a> in your email app.
@@ -66,67 +78,205 @@ const mailto = `mailto:${site.email}`;
     </p>
   )}
 
-  <p class="form-status" data-form-status hidden></p>
-  <button class="button" type="submit">Send a message</button>
+  <p class="form-status" data-form-status role="status" aria-live="polite" hidden></p>
+  <button class="button" type="submit">Send enquiry</button>
 </form>
 
 <script>
   const form = document.getElementById("contact-form");
   if (form instanceof HTMLFormElement) {
     const status = form.querySelector("[data-form-status]");
+    const summary = form.querySelector("[data-error-summary]");
+    const summaryList = form.querySelector("[data-error-list]");
     const endpoint = form.dataset.endpoint ?? "";
     const email = form.dataset.email ?? "";
+    const button = form.querySelector('button[type="submit"]');
+    const interest = form.querySelector('select[name="interest"]');
 
-    const preset = new URLSearchParams(window.location.search).get("subject")?.trim();
-    const subjectInput = form.querySelector('input[name="subject"]');
-    if (preset && subjectInput instanceof HTMLInputElement && !subjectInput.value) {
-      subjectInput.value = preset;
+    if (interest instanceof HTMLSelectElement) {
+      const allowed = new Set(
+        Array.from(interest.options)
+          .map((option) => option.value)
+          .filter(Boolean),
+      );
+      const requested = new URLSearchParams(window.location.search).get("interest") ?? "";
+      if (allowed.has(requested)) interest.value = requested;
+    }
+
+    const fields = [
+      { name: "name", id: "enquiry-name", errorId: "enquiry-name-error" },
+      { name: "organisation", id: "enquiry-organisation", errorId: "enquiry-organisation-error" },
+      { name: "email", id: "enquiry-email", errorId: "enquiry-email-error" },
+      { name: "message", id: "enquiry-message", errorId: "enquiry-message-error" },
+    ];
+
+    function injected(value: string) {
+      return /[\r\n]/.test(value);
+    }
+
+    function validate() {
+      const data = new FormData(form as HTMLFormElement);
+      const errors: { id: string; errorId: string; message: string }[] = [];
+      const name = String(data.get("name") ?? "").trim();
+      const organisation = String(data.get("organisation") ?? "").trim();
+      const from = String(data.get("email") ?? "").trim();
+      const message = String(data.get("message") ?? "").trim();
+
+      if (!name) errors.push({ id: "enquiry-name", errorId: "enquiry-name-error", message: "Enter your name." });
+      else if (name.length > 120 || injected(name)) {
+        errors.push({ id: "enquiry-name", errorId: "enquiry-name-error", message: "Name must be 120 characters or fewer." });
+      }
+
+      if (organisation.length > 200 || injected(organisation)) {
+        errors.push({
+          id: "enquiry-organisation",
+          errorId: "enquiry-organisation-error",
+          message: "Institution or organisation must be 200 characters or fewer.",
+        });
+      }
+
+      if (!from || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(from) || injected(from)) {
+        errors.push({ id: "enquiry-email", errorId: "enquiry-email-error", message: "Enter a valid email address." });
+      } else if (from.length > 254) {
+        errors.push({ id: "enquiry-email", errorId: "enquiry-email-error", message: "Email must be 254 characters or fewer." });
+      }
+
+      if (message.length < 10) {
+        errors.push({
+          id: "enquiry-message",
+          errorId: "enquiry-message-error",
+          message: "Tell me a little about your idea using at least 10 characters.",
+        });
+      } else if (message.length > 5000) {
+        errors.push({
+          id: "enquiry-message",
+          errorId: "enquiry-message-error",
+          message: "Message must be 5000 characters or fewer.",
+        });
+      }
+
+      return { errors, name, organisation, from, message };
+    }
+
+    function showErrors(errors: { id: string; errorId: string; message: string }[]) {
+      for (const field of fields) {
+        const input = document.getElementById(field.id);
+        const slot = document.getElementById(field.errorId);
+        const error = errors.find((item) => item.id === field.id);
+        if (input instanceof HTMLElement) {
+          if (error) input.setAttribute("aria-invalid", "true");
+          else input.removeAttribute("aria-invalid");
+        }
+        if (slot) {
+          slot.hidden = !error;
+          slot.textContent = error?.message ?? "";
+        }
+      }
+
+      if (summary instanceof HTMLElement && summaryList) {
+        summary.hidden = errors.length === 0;
+        summaryList.replaceChildren();
+        for (const error of errors) {
+          const item = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = `#${error.id}`;
+          link.textContent = error.message;
+          item.append(link);
+          summaryList.append(item);
+        }
+        if (errors.length > 0) summary.focus?.();
+      }
+    }
+
+    function setStatus(message: string, state: string) {
+      if (!(status instanceof HTMLElement)) return;
+      status.hidden = false;
+      status.dataset.state = state;
+      status.textContent = message;
     }
 
     form.addEventListener("submit", async (event) => {
+      event.preventDefault();
       const data = new FormData(form);
-      if (String(data.get("company") ?? "").trim()) {
-        event.preventDefault();
+      if (String(data.get("company") ?? "").trim()) return;
+
+      const { errors, name, organisation, from, message } = validate();
+      showErrors(errors);
+      if (errors.length > 0) {
+        const first = document.getElementById(errors[0].id);
+        if (first instanceof HTMLElement) first.focus();
         return;
       }
 
-      const name = String(data.get("name") ?? "").trim();
-      const from = String(data.get("email") ?? "").trim();
-      const subject = String(data.get("subject") ?? "Enquiry").trim();
-      const message = String(data.get("message") ?? "").trim();
+      const interestField = form.querySelector('select[name="interest"]');
+      const interestLabel =
+        interestField instanceof HTMLSelectElement
+          ? interestField.selectedOptions[0]?.textContent?.trim() ?? ""
+          : "";
+      const subject = interestLabel && interestField instanceof HTMLSelectElement && interestField.value
+        ? interestLabel
+        : "Enquiry";
 
       if (!endpoint) {
-        event.preventDefault();
-        const body = [`From: ${name} <${from}>`, "", message].join("\n");
+        const body = [
+          `Name: ${name}`,
+          organisation ? `Institution or organisation: ${organisation}` : "",
+          `Email: ${from}`,
+          interestLabel && interestField instanceof HTMLSelectElement && interestField.value
+            ? `Interested in: ${interestLabel}`
+            : "",
+          "",
+          message,
+        ].filter((line) => line !== "").join("\n");
         window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         return;
       }
 
-      event.preventDefault();
-      if (status instanceof HTMLElement) {
-        status.hidden = true;
+      if (button instanceof HTMLButtonElement) {
+        button.disabled = true;
+        button.textContent = "Sending…";
       }
 
       try {
+        const controller = new AbortController();
+        const timer = window.setTimeout(() => controller.abort(), 20000);
         const response = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ name, email: from, subject, message }),
+          body: JSON.stringify({
+            name,
+            organisation,
+            email: from,
+            interest: interestField instanceof HTMLSelectElement ? interestField.value : "",
+            message,
+          }),
+          signal: controller.signal,
         });
+        window.clearTimeout(timer);
 
+        if (response.status === 429) {
+          setStatus("Too many attempts. Please try again later or email John directly.", "error");
+          return;
+        }
         if (!response.ok) throw new Error("Request failed");
 
         form.reset();
-        if (status instanceof HTMLElement) {
-          status.hidden = false;
-          status.dataset.state = "ok";
-          status.textContent = "Thanks. I’ll get back to you.";
-        }
-      } catch {
-        if (status instanceof HTMLElement) {
-          status.hidden = false;
-          status.dataset.state = "error";
-          status.textContent = `The form could not be sent. Email ${email} instead.`;
+        setStatus(
+          "Thank you. Your enquiry has been sent to John. If you need to add anything, you can email john@margies.app.",
+          "ok",
+        );
+      } catch (error) {
+        const aborted = error instanceof DOMException && error.name === "AbortError";
+        setStatus(
+          aborted
+            ? "We could not confirm whether your enquiry was sent. You can try again or email John directly."
+            : "Your enquiry could not be sent. Please try again, or email john@margies.app. Your message is still here.",
+          "error",
+        );
+      } finally {
+        if (button instanceof HTMLButtonElement) {
+          button.disabled = false;
+          button.textContent = "Send enquiry";
         }
       }
     });

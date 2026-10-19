@@ -2,14 +2,14 @@ import type { APIRoute } from "astro";
 import { absoluteUrl } from "../config/site";
 import { getProjects, projectPath } from "../lib/projects";
 
-const staticPaths = ["/", "/godfrey", "/about", "/contact", "/work", "/georgette"];
+const staticPaths = ["/", "/historical-characters", "/godfrey", "/about", "/contact", "/work", "/georgette"];
 
 export const GET: APIRoute = async () => {
   const projects = await getProjects();
   const paths = [
     ...staticPaths,
     ...projects
-      .filter((project) => project.data.placement === "work")
+      .filter((project) => project.data.placement === "work" && project.id !== "captain-godfrey")
       .map(projectPath),
   ];
 

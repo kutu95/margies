@@ -1,7 +1,7 @@
 ---
 title: Cuborama
-summary: Four projected walls, so the picture surrounds the people in the room.
-pitch: Step inside the story.
+summary: Four walls of projected imagery create a room visitors can step into.
+pitch: Step inside a room of projected imagery.
 category: Immersive room
 disciplines:
   - Immersive
@@ -16,14 +16,18 @@ year: "2026"
 featured: true
 order: 2
 placement: work
-seoTitle: Cuborama — John Bowskill
-seoDescription: Cuborama is a cubic panorama. Four projected walls surround visitors with a moving image.
+seoTitle: Cuborama immersive projection | John Bowskill
+seoDescription: Explore Cuborama, a four-wall projected environment developed for the Georgette exhibition, and discuss a new setting.
 ---
 
-Cuborama is a cubic panorama. The picture continues around the room. Four walls, projected, so people are inside the image rather than looking at a screen.
+Cuborama is a cubic panorama: imagery continues across four walls so visitors can stand within a visual world. At the Georgette exhibition, that world drew on underwater photographs, the coast and the ship.
 
-At the Georgette exhibition the room held the visual world of the wreck: underwater photographs, the coast, the ship. A visitor walked in and was in the story.
+## One picture across four walls
 
-The same room can hold another place. Cuborama Studio is the tool I wrote to compose the four walls as one picture. The room is the work.
+I developed Cuborama Studio to compose the projected walls as a connected environment. The room and its imagery work together to shape the experience.
 
-[Georgette 150th](/georgette) · [Captain Godfrey](/work/captain-godfrey) · [Drift](/work/drift) · [Layer Painter](/work/layer-painter)
+## Explore a different setting
+
+Cuborama could be developed for another exhibition, gallery or festival. Each setting needs its own approach to the space, projection and content. A new installation may require further engineering and specialist collaboration, depending on the venue.
+
+[See the Georgette 150th exhibition](/georgette)

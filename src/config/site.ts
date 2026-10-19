@@ -41,14 +41,33 @@ export const site = {
 
 export const printsHref = "https://exhibition.margies.app/shop";
 
-export const nav = [
-  { href: "/", label: "Home" },
+export const headerNav = [
+  { href: "/historical-characters", label: "Historical Characters" },
   { href: "/godfrey", label: "Captain Godfrey" },
-  { href: "/work", label: "Work" },
+  { href: "/work", label: "Interactive Works" },
+  { href: "/about", label: "About John" },
+  { href: "/contact", label: "Discuss an installation" },
+] as const;
+
+export const footerNav = [
+  { href: "/", label: "Home" },
+  { href: "/historical-characters", label: "Historical Characters" },
+  { href: "/godfrey", label: "Captain Godfrey" },
+  { href: "/work", label: "Interactive Works" },
   { href: "/georgette", label: "Georgette 150th" },
+  { href: "/about", label: "About John" },
+  { href: "/contact", label: "Contact" },
   { href: printsHref, label: "Prints" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Enquire" },
+] as const;
+
+export const enquiryInterests = [
+  { value: "historical-characters", label: "Historical characters" },
+  { value: "captain-godfrey", label: "Captain Godfrey" },
+  { value: "cuborama", label: "Cuborama" },
+  { value: "drift", label: "Drift" },
+  { value: "layer-painter", label: "Layer Painter" },
+  { value: "photographic-prints", label: "Photographic prints" },
+  { value: "another-idea", label: "Another idea" },
 ] as const;
 
 export const disciplines = [

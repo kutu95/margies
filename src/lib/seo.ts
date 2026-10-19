@@ -17,30 +17,11 @@ export function personJsonLd() {
       addressCountry: "AU",
     },
     knowsAbout: [
-      "Interactive exhibition pieces",
-      "Historic metahumans",
-      "Art technology",
+      "Conversational historical characters",
+      "Immersive projection",
+      "Interactive installations",
     ],
     sameAs: [...site.sameAs],
-  };
-}
-
-export function organizationJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": absoluteUrl("/#organization"),
-    name: site.name,
-    url: site.url,
-    email: site.email,
-    description: site.description,
-    founder: { "@id": absoluteUrl("/#person") },
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Margaret River",
-      addressRegion: "WA",
-      addressCountry: "AU",
-    },
   };
 }
 
@@ -53,7 +34,7 @@ export function websiteJsonLd() {
     url: site.url,
     description: site.description,
     inLanguage: site.language,
-    publisher: { "@id": absoluteUrl("/#organization") },
+    publisher: { "@id": absoluteUrl("/#person") },
   };
 }
 

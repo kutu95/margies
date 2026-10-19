@@ -1,0 +1,56 @@
+---
+import { godfreyEvidence, godfreyMetrics } from "../data/godfrey-evidence";
+
+interface Props {
+  variant: "home" | "case-study";
+}
+
+const { variant } = Astro.props;
+const primary = godfreyMetrics("primary");
+const secondary = variant === "case-study" ? godfreyMetrics("secondary") : [];
+---
+
+<div class="evidence">
+  <dl class="figure-list">
+    {primary.map((metric) => (
+      <div>
+        <dd>{metric.value}</dd>
+        <dt>
+          <span class="evidence-label">{metric.displayLabel}</span>
+          <span class="evidence-meta">{metric.period}. {metric.caveat}</span>
+        </dt>
+      </div>
+    ))}
+  </dl>
+
+  {variant === "home" && (
+    <>
+      <p class="figure-note">{godfreyEvidence.homeNote}</p>
+      <p class="figure-note">
+        <a href="/godfrey#methodology">{godfreyEvidence.sourceLabel}</a>
+      </p>
+    </>
+  )}
+
+  {secondary.length > 0 && (
+    <dl class="figure-list evidence-secondary">
+      {secondary.map((metric) => (
+        <div>
+          <dd>{metric.value}</dd>
+          <dt>
+            <span class="evidence-label">{metric.displayLabel}</span>
+            <span class="evidence-meta">{metric.period}. {metric.caveat}</span>
+          </dt>
+        </div>
+      ))}
+    </dl>
+  )}
+
+  {variant === "case-study" && (
+    <div id="methodology">
+      <p>{godfreyEvidence.methodology}</p>
+      <p>{godfreyEvidence.limitation}</p>
+      <p>{godfreyEvidence.sourceLabel}</p>
+    </div>
+  )}
+</div>

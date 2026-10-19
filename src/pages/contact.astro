@@ -16,12 +16,11 @@ const description = page.data.seoDescription ?? "";
   path="/contact"
   jsonLd={breadcrumbJsonLd([
     { name: "Home", path: "/" },
-      { name: "Enquire", path: "/contact" },
+      { name: "Contact", path: "/contact" },
   ])}
 >
   <header class="page-hero">
     <div class="wrap-narrow">
-      <p class="section-kicker">{page.data.kicker}</p>
       <h1 class="page-title">{page.data.headline}</h1>
       <p class="lede">{page.data.lede}</p>
     </div>
@@ -35,7 +34,7 @@ const description = page.data.seoDescription ?? "";
           {site.region}
         </p>
         <p>
-          Email: <a href={`mailto:${site.email}`}>{site.email}</a>
+          Prefer email? Write to <a href={`mailto:${site.email}`}>{site.email}</a>.
         </p>
       </div>
       <ContactForm />
