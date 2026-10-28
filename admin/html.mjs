@@ -9,6 +9,12 @@ const disciplines = [
   "Hardware",
 ];
 
+function plausibleScript() {
+  if (process.env.NODE_ENV !== "production") return "";
+  const url = process.env.NEXT_PUBLIC_PLAUSIBLE_URL || "https://analytics.margies.app";
+  return `<script defer data-domain="margies.app,www.margies.app" src="${url}/js/script.tagged-events.js"></script>`;
+}
+
 function escape(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -72,6 +78,7 @@ export function layout({ title, csrf, notice, error, body }) {
     .thumb { font-size:.8rem; color:var(--muted); word-break:break-all; }
     .login { max-width:24rem; margin:4rem auto; }
   </style>
+  ${plausibleScript()}
 </head>
 <body>
   <header>
@@ -125,6 +132,7 @@ export function loginPage({ error }) {
     button { border:1px solid #171614; background:#171614; color:#f3f1eb; padding:.7rem 1rem; font:inherit; }
     .error { color:#7a2a1c; }
   </style>
+  ${plausibleScript()}
 </head>
 <body>
   <form method="post" action="/admin/login">

@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import JsonLd from "../components/JsonLd.astro";
 import { absoluteUrl, site } from "../config/site";
+import { plausibleDataDomain } from "../lib/plausible";
 import "../styles/global.css";
 
 interface Props {
@@ -31,6 +32,8 @@ const {
 const canonical = absoluteUrl(path);
 const imageUrl = image.startsWith("http") ? image : absoluteUrl(image);
 const jsonLdItems = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+const plausibleEnabled = process.env.NODE_ENV === "production";
+const plausibleSrc = `${process.env.NEXT_PUBLIC_PLAUSIBLE_URL || "https://analytics.margies.app"}/js/script.tagged-events.js`;
 ---
 
 <!doctype html>
@@ -70,6 +73,14 @@ const jsonLdItems = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
     <Font cssVariable="--font-heading" preload />
     <Font cssVariable="--font-body" preload />
     {jsonLdItems.map((data) => <JsonLd data={data} />)}
+    {plausibleEnabled && (
+      <script
+        is:inline
+        defer
+        data-domain={plausibleDataDomain()}
+        src={plausibleSrc}
+      ></script>
+    )}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
